@@ -1,0 +1,35 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+//theme 1
+// $color_accent: #3beaf0;
+// $color_primary: #202529;
+// $color_secondary: #32383d;
+// $black: #1e1e1e;
+// $white: lighten($color_secondary, 50);
+
+
+// //Theme 2
+// $color_accent: #fddf59;
+// $color_primary: #282e33;
+// $color_secondary: #3c4349;
+// $color_tag: #2c5e3d;
+// $black: #1e1e1e;
+// $white: lighten($color_secondary, 60);
+
+
+//Theme 3
+$color_accent: #77b2ff;
+$accent_swatch: color-yiq($color_accent);
+$color_primary: #282e33;
+$color_secondary: #495158;
+$color_tag: #2c5e3d;
+$black: #1e1e1e;
+$white: lighten($color_secondary, 60);
+$color_text: $white;
+
+
+$theme-colors: ("primary": $color_primary,
+  "secondary": $color_secondary,
+  "info": $color_accent);

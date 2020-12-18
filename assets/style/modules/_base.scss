@@ -1,0 +1,10 @@
+.upper {
+  text-transform: uppercase;
+}
+
+.action-button {
+  position: absolute;
+  right: $views-padding;
+  bottom: $views-padding;
+  font-size: 4em;
+}

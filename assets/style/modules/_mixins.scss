@@ -1,0 +1,23 @@
+@mixin grid($row-height, $row-width, $grid-gap) {
+  display: grid;
+  grid-auto-rows: $row-height;
+  grid-gap: $grid-gap;
+  grid-template-columns: repeat(auto-fill, $row-width);
+  justify-content: center;
+}
+
+@mixin bar-border($position, $color) {
+  border-#{$position}: 1px solid darken($color, 3);
+}
+
+@mixin padding-main() {
+  padding: 0px 25px 0px 25px;
+}
+
+@mixin flex($flex-direction:row, $flex-justify:center, $flex-align:center, $flex-wrap:nowrap) {
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: $flex-justify;
+  align-items: $flex-align;
+  flex-wrap: $flex-wrap;
+}
