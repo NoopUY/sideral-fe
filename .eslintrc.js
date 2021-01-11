@@ -14,5 +14,9 @@ module.exports = {
   plugins: [
   ],
   // add your custom rules here
-  rules: {}
+  rules: {
+    'require-await': ['off'],
+    semi: ['off'],
+    "max-len": ['off']
+  }
 }

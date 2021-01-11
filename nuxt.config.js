@@ -17,7 +17,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '@/plugins/vuelidate.js'
+    '@/plugins/vuelidate.js',
+    '@/plugins/moment.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -67,5 +68,10 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-  }
+  },
+
+  server: {
+    port: 8000, // default: 3000
+    host: '0.0.0.0' // default: localhost
+  } // other configs
 }

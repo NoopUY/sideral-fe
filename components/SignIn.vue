@@ -1,8 +1,13 @@
 <template>
-  <div>
+  <div class="d-flex flex-column justify-content-center align-items-center sign-in-wrapper w-100">
     <b-form
+      class="bg-light p-5 rounded"
       @submit.prevent="onSubmit"
     >
+      <h3 class="w-100 text-center mb-4">
+        Sign in
+      </h3>
+
       <b-form-group
         label="Email Address"
         label-for="email-input"
@@ -16,11 +21,11 @@
           placeholder="Enter email"
           aria-describedby="email-input-feedback"
         />
-        <b-form-ipnvalid-feedback
+        <b-form-invalid-feedback
           id="email-input-feedback"
         >
           Email required
-        </b-form-ipnvalid-feedback>
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group
@@ -42,45 +47,35 @@
         </b-form-invalid-feedback>
       </b-form-group>
 
-      <err-alert :message="errMessage" />
-
-      <b-row class="justify-content-md-left">
-        <b-col
-          md="2"
-          cols="12"
+      <!-- <err-alert :message="errMessage" /> -->
+      <div class="w-100 d-flex justify-content-center">
+        <b-button
+          type="submit"
+          variant="primary"
+          :disabled="$nuxt.$loading && $nuxt.$loading.show"
         >
-          <b-button
-            type="submit"
-            variant="primary"
-            :disabled="$nuxt.$loading && $nuxt.$loading.show"
-          >
-            Submit
-          </b-button>
-        </b-col>
-        <b-col
-          v-if="slug"
-          md="2"
-          cols="12"
-          class="pt-2"
-        >
-          <nuxt-link :to="`/${slug}/register`">
-            Register
-          </nuxt-link>
-        </b-col>
-        <b-col
-          v-if="slug"
-          md="8"
-          cols="12"
-          class="pt-2"
-        >
-          <nuxt-link :to="`/${slug}/request-password-reset`">
-            Forgot Password
-          </nuxt-link>
-        </b-col>
-      </b-row>
+          Submit
+        </b-button>
+      </div>
+      <div class="w-100 d-flex justify-content-center mt-2">
+        <nuxt-link :to="`/register`" class="mr-3">
+          Register
+        </nuxt-link>
+        <nuxt-link :to="`/request-password-reset`">
+          Forgot Password
+        </nuxt-link>
+      </div>
     </b-form>
   </div>
 </template>
+
+<style lang="scss" scoped>
+@import '@/assets/style/modules/colors';
+
+  .sign-in-wrapper {
+    height: 100vh;
+  }
+</style>
 
 <script>
 import form from '@/mixins/form.js'
@@ -88,9 +83,6 @@ import { email, required, minLength } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
 export default {
   mixins: [form],
-  props: {
-    slug: { type: String, default: '' }
-  },
   data: () => ({
     form: {
       email: '',
@@ -106,7 +98,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      submit: 'users/sign-in'
+      submit: 'session/sign-in'
     }),
 
     async onSubmit () {
@@ -118,12 +110,13 @@ export default {
           email: this.form.email,
           password: this.form.password
         })
-        this.$toast.success(
-          'Success: Sign In'
-        )
+        // this.$toast.success(
+        //   'Success: Sign In'
+        // )
         this.$emit('login')
       } catch (err) {
-        this.errMessage = err.response.data.message
+        console.log(err);
+        // this.errMessage = err.response.data.message
       }
     }
   }

@@ -7,18 +7,21 @@
         src="https://www.gravatar.com/avatar/6dd402bc320f5db641223a48bff9d17d.jpg"
       />
 
-      <b-link class="nav-item">
+      <b-link
+        class="nav-item"
+        @click="onSignOut()"
+      >
         <fa :icon="['fas', 'sign-out-alt']" class="fa-rotate-180" />
       </b-link>
 
-      <b-link class="nav-item notification">
+      <b-link class="nav-item notification" to="/notifications">
         <fa :icon="['fas', 'bell']" />
         <b-badge pill variant="danger" class="notification-badge">
           3
         </b-badge>
       </b-link>
 
-      <b-link class="nav-item">
+      <b-link to="/settings" class="nav-item">
         <fa :icon="['fas', 'cog']" />
       </b-link>
 
@@ -26,19 +29,19 @@
     </div>
 
     <div class="nav">
-      <b-link :to="{ name: 'home' }" class="nav-item">
+      <b-link to="/home" class="nav-item">
         <fa :icon="['fas', 'compass']" />
       </b-link>
 
-      <b-link :to="{ name: 'batches' }" class="nav-item">
+      <b-link to="/batches" class="nav-item">
         <fa :icon="['fas', 'wine-glass']" />
       </b-link>
 
-      <b-link :to="{ name: 'calculator' }" class="nav-item">
+      <b-link to="/stats" class="nav-item">
         <fa :icon="['fas', 'chart-area']" />
       </b-link>
 
-      <b-link :to="{ name: 'calculator' }" class="nav-item">
+      <b-link to="/calculator" class="nav-item">
         <fa :icon="['fas', 'calculator']" />
       </b-link>
     </div>
@@ -52,6 +55,8 @@
 @import "@/assets/style/modules/_mixins.scss";
 
 #nav {
+  position: fixed;
+
   @media #{$md-screen} {
     @include bar-border("top", $color_primary);
     width: 100%;
@@ -181,12 +186,20 @@
 </style>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data: () => {
     return {
       opened: false
     }
   },
-  methods: {}
+  methods: {
+    ...mapActions({ signOut: 'session/sign-out' }),
+    onSignOut () {
+      this.signOut()
+      this.$router.replace({ path: '/sign-in' })
+    }
+  }
 }
 </script>
