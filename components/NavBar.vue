@@ -14,36 +14,37 @@
         <fa :icon="['fas', 'sign-out-alt']" class="fa-rotate-180" />
       </b-link>
 
-      <b-link class="nav-item notification" to="/notifications">
+      <!-- <b-link class="nav-item notification" to="/notifications">
         <fa :icon="['fas', 'bell']" />
         <b-badge pill variant="danger" class="notification-badge">
           3
         </b-badge>
-      </b-link>
+      </b-link> -->
 
-      <b-link to="/settings" class="nav-item">
+      <!-- <b-link to="/settings" class="nav-item">
         <fa :icon="['fas', 'cog']" />
-      </b-link>
+      </b-link> -->
 
       <div class="nav-divider" />
     </div>
 
     <div class="nav">
-      <b-link to="/home" class="nav-item">
+      <!-- <b-link to="/home" class="nav-item">
         <fa :icon="['fas', 'compass']" />
-      </b-link>
+      </b-link> -->
 
       <b-link to="/batches" class="nav-item">
-        <fa :icon="['fas', 'wine-glass']" />
+        <!-- <fa :icon="['fas', 'wine-glass']" /> -->
+        <b-icon icon="bucket" />
       </b-link>
 
-      <b-link to="/stats" class="nav-item">
+      <!-- <b-link to="/stats" class="nav-item">
         <fa :icon="['fas', 'chart-area']" />
-      </b-link>
+      </b-link> -->
 
-      <b-link to="/calculator" class="nav-item">
+      <!-- <b-link to="/calculator" class="nav-item">
         <fa :icon="['fas', 'calculator']" />
-      </b-link>
+      </b-link> -->
     </div>
   </div>
 </template>
