@@ -31,16 +31,24 @@ export default {
         ...b,
         actions: [
           {
-            action: 'batchView',
-            icon: 'search'
-          },
-          {
+            type: 'action',
             action: 'batchEdit',
-            icon: 'pen'
+            name: 'Edit',
+            icon: 'pencil-square'
           },
           {
+            type: 'divider',
+          },
+          {
+            type: 'header',
+            title: 'Danger Zone'
+          },
+          {
+            type: 'action',
             action: 'batchDelete',
-            icon: 'trash'
+            name: 'Delete',
+            icon: 'trash',
+            class: 'text-danger'
           }
         ]
       }))
