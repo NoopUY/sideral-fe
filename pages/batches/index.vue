@@ -6,6 +6,8 @@
         :items="batchesData"
         :fields="fieldsDef"
         :busy="busy"
+        @actionClick="onActionClick"
+        @bulkActionClick="onBulkActionClick"
       />
     </div>
   </div>
@@ -34,7 +36,8 @@ export default {
             type: 'action',
             action: 'batchEdit',
             name: 'Edit',
-            icon: 'pencil-square'
+            icon: 'pencil-square',
+            addToBulk: false
           },
           {
             type: 'divider',
@@ -48,7 +51,8 @@ export default {
             action: 'batchDelete',
             name: 'Delete',
             icon: 'trash',
-            class: 'text-danger'
+            class: 'text-danger',
+            addToBulk: true
           }
         ]
       }))
@@ -60,7 +64,17 @@ export default {
   },
 
   methods: {
-    ...mapActions({ fetchBatches: 'batches/fetch' })
+    ...mapActions({ fetchBatches: 'batches/fetch' }),
+    
+    onActionClick(action, item){
+      console.log(action);
+      console.log(item);
+    },
+
+    onBulkActionClick(action, items){
+      console.log(action);
+      console.log(items);
+    }
   }
 };
 </script>

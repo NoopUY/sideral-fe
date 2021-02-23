@@ -9,6 +9,8 @@
       :items="modelItems"
       :fields="fields"
       :busy="busy"
+      @actionClick="onActionClick"
+      @bulkActionClick="onBulkActionClick"
     />
 
     <Pagination :id="id" />
@@ -58,9 +60,13 @@ export default {
   },
 
   methods: {
-    onDelete (item) {
-      this.$emit('onDelete', item);
-    }
+    onActionClick(action, item) {
+      this.$emit("actionClick", action, item);
+    },
+
+    onBulkActionClick(action, items) {
+      this.$emit("bulkActionClick", action, items);
+    },
   }
 }
 </script>

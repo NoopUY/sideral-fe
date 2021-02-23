@@ -14,9 +14,33 @@
     responsive
     @row-selected="onRowSelected"
   >
-
     <template #head(check)>
-      <b-form-checkbox @change="onSelectAll" :checked="allSelected"/>
+      <b-form-checkbox @change="onSelectAll" :checked="allSelected" />
+    </template>
+
+    <template #thead-top v-if="selectedItems.length > 0">
+      <b-tr>
+        <b-th colspan="2">
+          <b-dropdown text="Actions">
+            <span v-for="action in modelItems[0].actions" :key="action.action">
+              <b-dropdown-item
+                v-if="action.type === 'action' && action.addToBulk"
+                :disabled="
+                  ($nuxt.$loading && $nuxt.$loading.show) || action.disabled
+                "
+                @click="onBulkActionClick(action)"
+              >
+                <span
+                  :class="`d-flex justify-content-between ${action.class}`"
+                >
+                  <b-icon :icon="action.icon" class="mr-3" />
+                  {{ action.name }} selected
+                </span>
+              </b-dropdown-item>
+            </span>
+          </b-dropdown>
+        </b-th>
+      </b-tr>
     </template>
 
     <template #table-busy>
@@ -27,42 +51,49 @@
     </template>
 
     <template #cell(check)="data">
-      <b-form-checkbox :checked="data.rowSelected" @change="onSelectRow($event, data)"/>
+      <b-form-checkbox
+        :checked="data.rowSelected"
+        @change="onSelectRow($event, data)"
+      />
     </template>
 
     <template #cell(tags)="data">
-      <b-badge v-for="tag in data.value" :key="tag" class="ml-1" :variant="tag.variant || 'info'">
+      <b-badge
+        v-for="tag in data.value"
+        :key="tag"
+        class="ml-1"
+        :variant="tag.variant || 'info'"
+      >
         {{ tag }}
       </b-badge>
     </template>
 
     <template #cell(actions)="data">
-       <b-dropdown variant="clear" no-caret>
+      <b-dropdown variant="clear" no-caret>
         <template #button-content>
-          <b-icon icon="three-dots-vertical" class="text-white"/>
+          <b-icon icon="three-dots-vertical" class="text-white" />
         </template>
 
-        <span
-        v-for="action in data.value"
-        :key="action.action"
-        >
-        <b-dropdown-item 
-          v-if="action.type === 'action'"
-          :disabled="($nuxt.$loading && $nuxt.$loading.show) || action.disabled"
-        >
-          <span :class="`w-100 d-flex justify-content-between align-items-center ${action.class}`">
-          <b-icon :icon="action.icon" />
-          {{ action.name }}
-        </span>
-        </b-dropdown-item>
+        <span v-for="action in data.value" :key="action.action">
+          <b-dropdown-item
+            v-if="action.type === 'action'"
+            :disabled="
+              ($nuxt.$loading && $nuxt.$loading.show) || action.disabled
+            "
+            @click="onActionClick(action, data)"
+          >
+            <div :class="`d-flex justify-content-between ${action.class}`">
+              <b-icon :icon="action.icon" />
+              {{ action.name }}
+            </div>
+          </b-dropdown-item>
 
-        <b-dropdown-divider v-if="action.type === 'divider'" />
-        <b-dropdown-header v-if="action.type ==='header'">
-          {{action.title}}
-        </b-dropdown-header>
+          <b-dropdown-divider v-if="action.type === 'divider'" />
+          <b-dropdown-header v-if="action.type === 'header'">
+            {{ action.title }}
+          </b-dropdown-header>
         </span>
       </b-dropdown>
-
     </template>
   </b-table>
 </template>
@@ -72,55 +103,59 @@ export default {
   props: {
     id: {
       type: String,
-      required: true
+      required: true,
     },
     items: {
       type: Array,
-      default: () => ([])
+      default: () => [],
     },
     fields: {
       type: Array,
-      default: () => ([])
+      default: () => [],
     },
     busy: {
       type: Boolean,
-      default: false
+      default: false,
     },
     actions: {
       type: Array,
-      default: () => ([])
-    }
+      default: () => [],
+    },
   },
 
   data: () => ({
     modelItems: [],
     modelFields: [],
-    selectedFields: [],
-    allSelected: false
+    selectedItems: [],
+    allSelected: false,
   }),
 
   watch: {
-    items (val) {
+    items(val) {
       this.modelItems = val;
     },
-    busy (val) {
-      this.busy = val
-    }
+    busy(val) {
+      this.busy = val;
+    },
   },
 
-  mounted () {
+  mounted() {
     this.modelItems = this.items;
     this.modelFields = this.mixinFields(this.fields);
   },
 
   methods: {
-    onActionClick (action, item) {
-      this.$emit('onActionClick', action, item);
+    onActionClick(action, item) {
+      this.$emit("actionClick", action, item);
     },
 
-    onRowSelected (selected) {
-      this.selectedFields = selected;
-      this.allSelected = this.selectedFields.length === this.modelItems.length;
+    onBulkActionClick(action) {
+      this.$emit("bulkActionClick", action, this.selectedItems);
+    },
+
+    onRowSelected(selected) {
+      this.selectedItems = selected;
+      this.allSelected = this.selectedItems.length === this.modelItems.length;
     },
 
     onSelectRow(evt, row) {
@@ -136,16 +171,15 @@ export default {
     mixinFields(fields) {
       return [
         {
-          key: 'check',
-          label: ''
+          key: "check",
+          label: "",
         },
-        ...fields
-      ]
-    }
-  }
-}
+        ...fields,
+      ];
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>

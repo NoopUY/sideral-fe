@@ -26,8 +26,7 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
-    // https://go.nuxtjs.dev/eslint
-    ['@nuxtjs/eslint-module', { fix: true }],
+    
 
     ['@nuxtjs/fontawesome', {
       component: 'fa',
@@ -46,7 +45,9 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // https://go.nuxtjs.dev/eslint
+    '@nuxtjs/eslint-module',
   ],
 
   bootstrapVue: {
