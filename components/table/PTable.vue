@@ -1,14 +1,15 @@
 <template>
-  <div class="w-100">
-    <div class="w-100 d-flex justify-content-end">
+  <div class="w-100 mt-5">
+    <div class="w-100 d-flex justify-content-end mb-2">
       <Search />
+      <slot name="actions" />
     </div>
 
     <Table
       :id="id"
       :items="modelItems"
       :fields="fields"
-      :busy="busy"
+      :busy="modelBusy"
       @actionClick="onActionClick"
       @bulkActionClick="onBulkActionClick"
     />
@@ -43,7 +44,8 @@ export default {
   },
 
   data: () => ({
-    modelItems: []
+    modelItems: [],
+    modelBusy: false
   }),
 
   watch: {
@@ -51,22 +53,23 @@ export default {
       this.modelItems = val;
     },
     busy (val) {
-      this.busy = val
+      this.modelBusy = val
     }
   },
 
   mounted () {
     this.modelItems = this.items;
+    this.modelBusy = this.busy;
   },
 
   methods: {
-    onActionClick(action, item) {
-      this.$emit("actionClick", action, item);
+    onActionClick (action, item) {
+      this.$emit('actionClick', action, item);
     },
 
-    onBulkActionClick(action, items) {
-      this.$emit("bulkActionClick", action, items);
-    },
+    onBulkActionClick (action, items) {
+      this.$emit('bulkActionClick', action, items);
+    }
   }
 }
 </script>

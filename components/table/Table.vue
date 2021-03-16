@@ -8,17 +8,17 @@
     dark
     :items="modelItems"
     :fields="modelFields"
-    :busy="busy"
+    :busy="modelBusy"
     select-mode="range"
     :selectable="true"
     responsive
     @row-selected="onRowSelected"
   >
     <template #head(check)>
-      <b-form-checkbox @change="onSelectAll" :checked="allSelected" />
+      <b-form-checkbox :checked="allSelected" @change="onSelectAll" />
     </template>
 
-    <template #thead-top v-if="selectedItems.length > 0">
+    <template v-if="selectedItems.length > 0" #thead-top>
       <b-tr>
         <b-th colspan="2">
           <b-dropdown text="Actions">
@@ -103,81 +103,81 @@ export default {
   props: {
     id: {
       type: String,
-      required: true,
+      required: true
     },
     items: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     fields: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     busy: {
       type: Boolean,
-      default: false,
+      default: false
     },
     actions: {
       type: Array,
-      default: () => [],
-    },
+      default: () => []
+    }
   },
 
   data: () => ({
     modelItems: [],
     modelFields: [],
+    modelBusy: false,
     selectedItems: [],
-    allSelected: false,
+    allSelected: false
   }),
 
   watch: {
-    items(val) {
+    items (val) {
       this.modelItems = val;
     },
-    busy(val) {
-      this.busy = val;
-    },
+    busy (val) {
+      this.modelBusy = val;
+    }
   },
 
-  mounted() {
+  mounted () {
     this.modelItems = this.items;
     this.modelFields = this.mixinFields(this.fields);
+    this.modelBusy = this.busy;
   },
 
   methods: {
-    onActionClick(action, item) {
-      this.$emit("actionClick", action, item);
+    onActionClick (action, item) {
+      this.$emit('actionClick', action, item);
     },
 
-    onBulkActionClick(action) {
-      this.$emit("bulkActionClick", action, this.selectedItems);
+    onBulkActionClick (action) {
+      this.$emit('bulkActionClick', action, this.selectedItems);
     },
 
-    onRowSelected(selected) {
+    onRowSelected (selected) {
       this.selectedItems = selected;
       this.allSelected = this.selectedItems.length === this.modelItems.length;
     },
 
-    onSelectRow(evt, row) {
-      if (evt) this.$refs[`ref_${this.id}`].selectRow(row.index);
-      else this.$refs[`ref_${this.id}`].unselectRow(row.index);
+    onSelectRow (evt, row) {
+      if (evt) { this.$refs[`ref_${this.id}`].selectRow(row.index); } else { this.$refs[`ref_${this.id}`].unselectRow(row.index); }
     },
 
-    onSelectAll(evt) {
-      if (evt) this.$refs[`ref_${this.id}`].selectAllRows();
-      else this.$refs[`ref_${this.id}`].clearSelected();
+    onSelectAll (evt) {
+      if (evt) { this.$refs[`ref_${this.id}`].selectAllRows(); } else { this.$refs[`ref_${this.id}`].clearSelected(); }
     },
 
-    mixinFields(fields) {
+    mixinFields (fields) {
       return [
         {
-          key: "check",
-          label: "",
+          key: 'check',
+          label: ''
         },
-        ...fields,
+        ...fields
       ];
-    },
-  },
+    }
+  }
 };
 </script>
 

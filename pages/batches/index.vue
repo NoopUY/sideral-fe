@@ -8,7 +8,15 @@
         :busy="busy"
         @actionClick="onActionClick"
         @bulkActionClick="onBulkActionClick"
-      />
+      >
+        <template #actions>
+          <div class="ml-3">
+            <b-button variant="light" class="btn-circle btn-md">
+              <b-icon icon="plus" scale="1.5" />
+            </b-button>
+          </div>
+        </template>
+      </PTable>
     </div>
   </div>
 </template>
@@ -40,7 +48,7 @@ export default {
             addToBulk: false
           },
           {
-            type: 'divider',
+            type: 'divider'
           },
           {
             type: 'header',
@@ -65,13 +73,14 @@ export default {
 
   methods: {
     ...mapActions({ fetchBatches: 'batches/fetch' }),
-    
-    onActionClick(action, item){
-      console.log(action);
-      console.log(item);
+
+    onActionClick (action, item) {
+      if (action.action === 'batchEdit') {
+        this.$router.push({ path: `batch/${item.item._id}` });
+      }
     },
 
-    onBulkActionClick(action, items){
+    onBulkActionClick (action, items) {
       console.log(action);
       console.log(items);
     }

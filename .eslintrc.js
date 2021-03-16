@@ -1,15 +1,14 @@
 module.exports = {
   root: true,
   env: {
-    browser: true,
-    node: true
+    browser: true
   },
   parserOptions: {
     parser: 'babel-eslint'
   },
   extends: [
     '@nuxtjs',
-    'plugin:nuxt/recommended',
+    'plugin:nuxt/recommended'
   ],
   plugins: [
   ],
@@ -17,6 +16,6 @@ module.exports = {
   rules: {
     'require-await': ['off'],
     semi: ['off'],
-    "max-len": ['off']
+    'max-len': ['off']
   }
 }

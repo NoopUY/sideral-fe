@@ -14,40 +14,58 @@
         <fa :icon="['fas', 'sign-out-alt']" class="fa-rotate-180" />
       </b-link>
 
-      <!-- <b-link class="nav-item notification" to="/notifications">
+      <b-link class="nav-item notification" to="/notifications">
         <fa :icon="['fas', 'bell']" />
         <b-badge pill variant="danger" class="notification-badge">
           3
         </b-badge>
-      </b-link> -->
+      </b-link>
 
-      <!-- <b-link to="/settings" class="nav-item">
+      <b-link to="/settings" class="nav-item">
         <fa :icon="['fas', 'cog']" />
-      </b-link> -->
-
+      </b-link>
       <div class="nav-divider" />
     </div>
 
     <div class="nav">
-      <!-- <b-link to="/home" class="nav-item">
+      <b-link to="/home" class="nav-item">
         <fa :icon="['fas', 'compass']" />
-      </b-link> -->
+      </b-link>
 
       <b-link to="/batches" class="nav-item">
         <!-- <fa :icon="['fas', 'wine-glass']" /> -->
         <b-icon icon="bucket" />
       </b-link>
 
-      <!-- <b-link to="/stats" class="nav-item">
+      <b-link to="/stats" class="nav-item">
         <fa :icon="['fas', 'chart-area']" />
-      </b-link> -->
+      </b-link>
 
-      <!-- <b-link to="/calculator" class="nav-item">
+      <b-link to="/calculator" class="nav-item">
         <fa :icon="['fas', 'calculator']" />
-      </b-link> -->
+      </b-link>
     </div>
   </div>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  data: () => {
+    return {
+      opened: false
+    }
+  },
+  methods: {
+    ...mapActions({ signOut: 'session/sign-out' }),
+    onSignOut () {
+      this.signOut()
+      this.$router.replace({ path: '/sign-in' })
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 @import "@/assets/style/modules/_colors.scss";
@@ -56,7 +74,6 @@
 @import "@/assets/style/modules/_mixins.scss";
 
 #nav {
-  position: fixed;
 
   @media #{$md-screen} {
     @include bar-border("top", $color_primary);
@@ -68,13 +85,13 @@
   }
 
   @include flex(column-reverse, space-between);
-  top: 0;
+  @include bar-border("right", $color_primary);
+
   height: 100%;
   background-color: $color_primary;
   min-width: $nav-width;
-  position: relative;
+  position: fixed;
   padding: 20px 0px 20px 0px;
-  @include bar-border("right", $color_primary);
 
   a {
     text-decoration: none;
@@ -88,7 +105,7 @@
     position: relative;
     width: $nav-width;
 
-    &.router-link-exact-active {
+    &.nuxt-link-exact-active {
       &::after {
         display: block;
       }
@@ -98,8 +115,8 @@
 
     &::after {
       content: "";
-      width: 4px;
-      height: 70%;
+      width: 3px;
+      height: 80%;
       background-color: $color_accent;
       display: none;
       position: absolute;
@@ -132,10 +149,8 @@
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
-  height: 100%;
   align-items: center;
   z-index: 1001;
-  @include bar-border("right", $color_primary);
 
   @media #{$md-screen} {
     width: 100%;
@@ -151,7 +166,6 @@
   align-items: center;
   flex-direction: column-reverse;
   z-index: 1001;
-  @include bar-border("right", $color_primary);
 
   @media #{$md-screen} {
     display: none;
@@ -185,22 +199,3 @@
   font-size: 0.5em;
 }
 </style>
-
-<script>
-import { mapActions } from 'vuex'
-
-export default {
-  data: () => {
-    return {
-      opened: false
-    }
-  },
-  methods: {
-    ...mapActions({ signOut: 'session/sign-out' }),
-    onSignOut () {
-      this.signOut()
-      this.$router.replace({ path: '/sign-in' })
-    }
-  }
-}
-</script>

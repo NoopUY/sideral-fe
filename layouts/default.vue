@@ -1,12 +1,25 @@
 <template>
   <div id="app">
     <nav-bar />
-    <Nuxt />
+    <div class="content">
+      <Nuxt />
+    </div>
   </div>
 </template>
 
+<script>
+export default {
+  middleware: ['auth']
+}
+</script><script>
+export default {
+  middleware: ['auth']
+}
+</script>
+
 <style lang="scss" scoped>
 @import "@/assets/style/modules/_colors.scss";
+@import "@/assets/style/modules/_constants.scss";
 @import "@/assets/style/modules/_mixins.scss";
 @import "@/assets/style/modules/_media.scss";
 
@@ -19,23 +32,21 @@
   position: absolute;
   color: $white;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   left: 0px;
   top: 0px;
   background-color: $color_primary;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
 
   @media #{$md-screen} {
     flex-direction: column-reverse;
   }
 }
-</style>
 
-<script>
-export default {
-  middleware: ['auth']
+.content {
+  width: 100%;
+  padding-left: $nav-width;
+  height: 100%;
+  min-height: 100vh;
 }
-</script>
+
+</style>
