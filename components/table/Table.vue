@@ -4,8 +4,6 @@
     :ref="`ref_${id}`"
     striped
     hover
-    borderless
-    dark
     :items="modelItems"
     :fields="modelFields"
     :busy="modelBusy"
@@ -18,7 +16,7 @@
       <b-form-checkbox :checked="allSelected" @change="onSelectAll" />
     </template>
 
-    <template v-if="selectedItems.length > 0" #thead-top>
+    <!-- <template v-if="selectedItems.length > 0" #thead-top>
       <b-tr>
         <b-th colspan="2">
           <b-dropdown text="Actions">
@@ -41,7 +39,7 @@
           </b-dropdown>
         </b-th>
       </b-tr>
-    </template>
+    </template> -->
 
     <template #table-busy>
       <div class="text-center my-2">
@@ -71,7 +69,7 @@
     <template #cell(actions)="data">
       <b-dropdown variant="clear" no-caret>
         <template #button-content>
-          <b-icon icon="three-dots-vertical" class="text-white" />
+          <b-icon icon="three-dots-vertical" variant="primary" />
         </template>
 
         <span v-for="action in data.value" :key="action.action">
@@ -181,5 +179,24 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+
+  $pad: 25px;
+
+  table > thead > tr > th:first-child {
+    padding-left: $pad;
+  }
+
+  table > thead > tr > th:last-child {
+    padding-right: $pad;
+  }
+
+  table > tbody > tr > td:first-child {
+    padding-left: $pad;
+  }
+
+  table > tbody > tr > td:last-child {
+    padding-right: $pad;
+  }
+
 </style>

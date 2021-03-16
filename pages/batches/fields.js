@@ -2,33 +2,39 @@ import moment from 'moment';
 
 export default [{
   key: 'custom_id',
-  label: '#'
+  label: '#Id',
+  thClass: 't-header'
 },
 {
   key: 'blend',
-  label: 'Blend'
+  label: 'Blend',
+  thClass: 't-header'
 },
 {
   key: 'created_at',
-  label: 'Created At',
+  label: 'Start time',
   formatter (value) {
     return value ? moment(value).fromNow() : '--'
   },
   sortable: true,
-  tdClass: 'batch-td-hide-mobile'
+  tdClass: 'batch-td-hide-mobile',
+  thClass: 't-header'
 },
 {
   key: 'state',
-  label: 'State'
+  label: 'State',
+  thClass: 't-header'
 },
 {
   key: 'tags',
   label: 'Tags',
-  tdClass: 'batch-td-hide-mobile'
+  tdClass: 'batch-td-hide-mobile',
+  thClass: 't-header'
 },
 {
   key: 'actions',
   label: 'Actions',
-  width: '135px'
+  width: '135px',
+  thClass: 't-header'
 }
 ]

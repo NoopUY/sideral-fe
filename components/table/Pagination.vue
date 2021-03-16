@@ -1,16 +1,15 @@
 
 <template>
-  <div class="w-100 d-flex justify-content-around align-items-start">
+  <div id="pagination" class="w-100 px-4 py-3 d-flex justify-content-around align-items-center">
     <span class="flex-grow-1">{{ showing }}</span>
     <span class="mr-3">
-      Show
+      Results per page:
       <b-form-select
         v-model="limit"
         :options="options"
         class="mx-1 w-auto"
         size="sm"
       />
-      Entries
     </span>
 
     <b-pagination
@@ -23,6 +22,7 @@
       prev-text="Previous"
       next-text="Next"
       size="sm"
+      class="mb-0"
     >
       <template #page="{page, active}">
         <b
@@ -35,17 +35,6 @@
     </b-pagination>
   </div>
 </template>
-
-<style lang="scss">
-@import "@/assets/style/modules/colors";
-
-  .page-link {
-    background-color: $color_secondary !important;
-    border: 1px solid $color_primary !important;
-    color: $white !important;
-  }
-
-</style>
 
 <script>
 export default {
@@ -81,14 +70,29 @@ export default {
     },
     showing () {
       const perPage = this.$store.getters[this.id + '/limit'];
-      console.log(`%c perpage = ${perPage}`, 'background-color:grey; padding:10px;');
       const totalRows = this.$store.getters[this.id + '/count'];
-      console.log(`%c totalrows = ${totalRows}`, 'background-color:grey; padding:10px;');
       const currentPage = this.$store.getters[this.id + '/currentPage'];
       const from = totalRows ? ((currentPage - 1) * perPage) + 1 : 0;
       const to = currentPage * perPage <= totalRows ? currentPage * perPage : totalRows;
-      return `Showing ${from} to ${to} of ${totalRows} Entries`;
+      return `Showing ${from} - ${to} of ${totalRows} results`;
     }
   }
 };
 </script>
+
+<style lang="scss">
+@import "@/assets/style/modules/colors";
+
+  #pagination {
+    background-color: #ffffff;
+    height: 60px;
+    color: darken($color_background, 40);
+  }
+
+  .page-link {
+    background-color: #ffffff !important;
+    border: 1px solid darken($color_background, 10) !important;
+    color: $color_text_dark !important;
+  }
+
+</style>

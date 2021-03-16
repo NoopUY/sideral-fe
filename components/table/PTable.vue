@@ -1,12 +1,11 @@
 <template>
-  <div class="w-100 mt-5">
-    <div class="w-100 d-flex align-items-center justify-content-end mb-2">
-      <div class="name mr-3">
-        {{ id }}
-      </div>
+  <div class="w-100">
+    <div class="mx-4 py-3 d-flex align-items-center justify-content-start content-header">
+      <Search placeholder="Search by code or name..." />
       <slot name="actions" />
-      <Search />
     </div>
+
+    <Pagination :id="id" />
 
     <Table
       :id="id"
@@ -16,8 +15,6 @@
       @actionClick="onActionClick"
       @bulkActionClick="onBulkActionClick"
     />
-
-    <Pagination :id="id" />
   </div>
 </template>
 
@@ -77,9 +74,10 @@ export default {
 }
 </script>
 
-<style>
-  .name {
-    font-size: 1.8em;
-    text-transform: uppercase;
-  }
+<style lang="scss">
+@import "@/assets/style/modules/_colors.scss";
+
+    .content-header {
+      border-bottom: 2px solid darken($color_background, 3);
+    }
 </style>

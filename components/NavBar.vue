@@ -93,7 +93,6 @@ export default {
   }
 
   @include flex(column-reverse, space-between);
-  @include bar-border("right", $color_primary);
 
   background-color: $color_primary;
   min-width: $nav-width;
@@ -121,15 +120,16 @@ export default {
 
     &::after {
       content: "";
-      width: 3px;
-      height: 80%;
+      width: 8px;
+      height: 60%;
       background-color: $color_accent;
       display: none;
       position: absolute;
-      right: 0px;
+      left: -5px;
       top: 50%;
       transform: translateY(-50%);
       z-index: -1;
+      border-radius: 30%;
 
       @media #{$md-screen} {
         width: 70%;
@@ -179,9 +179,9 @@ export default {
 }
 
 .nav-divider {
-  width: 80%;
-  height: 2px;
-  background-color: $color-secondary;
+  width: 50%;
+  height: 3px;
+  background-color: lighten($color-primary, 5);
   margin: 10px 0px 10px 0px;
 
   @media #{$md-screen} {

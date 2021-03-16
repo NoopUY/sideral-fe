@@ -2,17 +2,19 @@
   <div id="app">
     <nav-bar />
     <div id="app-content" class="d-flex flex-column">
-      <div id="content-header" class="px-3 py-4 d-flex justify-content-between align-items-center">
+      <div id="content-header" class="mt-2 mx-4 py-3 d-flex justify-content-between align-items-center">
         <div id="page-name">
           {{ pageName }}
         </div>
         <slot name="header-actions" />
       </div>
+      <slot name="page-content" />
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   middleware: ['auth'],
   computed: {
@@ -59,12 +61,13 @@ export default {
 
 #content-header {
   color: $color_text_dark;
-  border-bottom: 1px solid darken($color_background, 5);
+  border-bottom: 2px solid darken($color_background, 3);
 }
 
 #page-name {
-  font-size: 1.8em;
-  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
 </style>

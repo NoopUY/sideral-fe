@@ -24,10 +24,15 @@ $color_accent: #77b2ff;
 $accent_swatch: color-yiq($color_accent);
 $color_primary: #282e33;
 $color_secondary: #495158;
+$color_background: #F8F8F9;
 $color_tag: #2c5e3d;
 $black: #1e1e1e;
 $white: lighten($color_secondary, 60);
 $color_text: $white;
+$color_text_dark: lighten($color_primary, 5);
 
 
-$theme-colors: ("accent": $color_accent);
+$theme-colors: (
+  "primary": $color_primary,
+  "accent": $color_accent, 
+  "white": #FFFFFF);
