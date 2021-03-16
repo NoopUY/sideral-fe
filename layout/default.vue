@@ -51,12 +51,12 @@ export default {
   justify-content: flex-start;
 
   @media #{$md-screen} {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 }
 
 #app-content {
-  width: 100%;
+  flex-grow: 1;
 }
 
 #content-header {

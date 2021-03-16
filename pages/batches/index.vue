@@ -13,10 +13,10 @@
 
     <template #header-actions>
       <div>
-        <b-button variant="white" class="button-header">
+        <b-button variant="white" class="button-header hide-mobile">
           <b-icon icon="printer-fill" /> print
         </b-button>
-        <b-button variant="white" class="button-header">
+        <b-button variant="white" class="button-header hide-mobile">
           export <b-icon icon="caret-down-fill" />
         </b-button>
         <b-button variant="accent" class="button-header button-add">

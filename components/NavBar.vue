@@ -1,56 +1,80 @@
 <template>
   <div id="nav">
     <div class="nav-header">
+      <b-button class="nav-item hide-screen text-white" variant="transparent" @click="hidden=false">
+        <b-iconstack font-scale="1">
+          <b-icon stacked icon="dash" scale="2" shift-v="-5" />
+          <b-icon stacked icon="dash" scale="2" />
+          <b-icon stacked icon="dash" scale="2" shift-v="5" />
+        </b-iconstack>
+      </b-button>
+
+      <div id="page-name" class="hide-screen">
+        {{ pageName }}
+      </div>
+
       <b-avatar
         class="nav-avatar"
         size="3em"
         src="https://www.gravatar.com/avatar/6dd402bc320f5db641223a48bff9d17d.jpg"
       />
-
+      <!--
       <b-link
         class="nav-item"
         @click="onSignOut()"
       >
         <fa :icon="['fas', 'sign-out-alt']" class="fa-rotate-180" />
-      </b-link>
+      </b-link> -->
 
-      <b-link class="nav-item notification" to="/notifications">
+      <b-link class="nav-item notification hide-mobile" to="/notifications">
         <fa :icon="['fas', 'bell']" />
         <b-badge pill variant="danger" class="notification-badge">
           3
         </b-badge>
       </b-link>
 
-      <b-link to="/settings" class="nav-item">
+      <b-link to="/settings" class="nav-item hide-mobile">
         <fa :icon="['fas', 'cog']" />
       </b-link>
       <div class="nav-divider" />
     </div>
 
-    <div class="nav">
-      <!-- <b-link class="nav-item">
-        <b-iconstack font-scale="1">
-          <b-icon stacked icon="dash" scale="2" shift-v="-5" />
-          <b-icon stacked icon="dash" scale="2" />
-          <b-icon stacked icon="dash" scale="2" shift-v="5" />
-        </b-iconstack>
-      </b-link> -->
+    <div :class="['nav', {'hidden': hidden}]">
+      <div class="hide-screen w-100 d-flex flex-row justify-content-end pr-3 pt-3">
+        <b-button variant="transparent" class="text-white" @click="hidden=true">
+          <b-icon icon="X" scale="2" />
+        </b-button>
+      </div>
 
-      <b-link to="/home" class="nav-item">
-        <fa :icon="['fas', 'compass']" />
+      <div class="nav-divider" />
+
+      <b-link to="/home" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
+        <b-icon icon="house" />
+        <h6 class="hide-screen ml-3 mb-0 text-uppercase">
+          Home
+        </h6>
       </b-link>
 
-      <b-link to="/batches" class="nav-item">
+      <b-link to="/batches" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
         <!-- <fa :icon="['fas', 'wine-glass']" /> -->
         <b-icon icon="bucket" />
+        <h6 class="hide-screen ml-3 mb-0 text-uppercase">
+          Batches
+        </h6>
       </b-link>
 
-      <b-link to="/stats" class="nav-item">
-        <fa :icon="['fas', 'chart-area']" />
+      <b-link to="/stats" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
+        <b-icon icon="bar-chart-line" />
+        <h6 class="hide-screen ml-3 mb-0 text-uppercase">
+          Stats
+        </h6>
       </b-link>
 
-      <b-link to="/calculator" class="nav-item">
-        <fa :icon="['fas', 'calculator']" />
+      <b-link to="/calculator" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
+        <b-icon icon="calculator" />
+        <h6 class="hide-screen ml-3 mb-0 text-uppercase">
+          Calculator
+        </h6>
       </b-link>
     </div>
   </div>
@@ -62,7 +86,12 @@ import { mapActions } from 'vuex'
 export default {
   data: () => {
     return {
-      opened: false
+      hidden: true
+    }
+  },
+  computed: {
+    pageName () {
+      return this.$route.name
     }
   },
   methods: {
@@ -81,10 +110,15 @@ export default {
 @import "@/assets/style/modules/_constants.scss";
 @import "@/assets/style/modules/_mixins.scss";
 
+#page-name {
+  font-size: 1.4em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
 #nav {
 
   @media #{$md-screen} {
-    @include bar-border("top", $color_primary);
     width: 100%;
     height: $nav-width;
     padding: 0px;
@@ -126,18 +160,8 @@ export default {
       display: none;
       position: absolute;
       left: -5px;
-      top: 50%;
-      transform: translateY(-50%);
       z-index: -1;
       border-radius: 30%;
-
-      @media #{$md-screen} {
-        width: 70%;
-        height: 4px;
-        top: 0px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
     }
 
     span {
@@ -159,10 +183,18 @@ export default {
   z-index: 1001;
 
   @media #{$md-screen} {
-    width: 100%;
-    flex-flow: row;
-    justify-content: space-around;
-    align-items: center;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 60%;
+    background-color: $color_primary;
+    z-index: 9999;
+    transition: left 0.2s ease-in-out 0.1s;
+  }
+
+  &.hidden {
+    left: -70%;
   }
 }
 
@@ -174,7 +206,10 @@ export default {
   z-index: 1001;
 
   @media #{$md-screen} {
-    display: none;
+    width: 100%;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 
@@ -203,5 +238,11 @@ export default {
   right: 50%;
   transform: translate(110%, -110%);
   font-size: 0.5em;
+}
+
+.nav-avatar {
+  @media #{$md-screen} {
+    margin-right: 10px;
+  }
 }
 </style>

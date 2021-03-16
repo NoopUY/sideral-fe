@@ -1,4 +1,5 @@
 @import './colors';
+@import './media';
 
 .upper {
   text-transform: uppercase;
@@ -35,6 +36,19 @@
 }
 
 .t-header {
-  color: darken($color_background, 50);
+  color: darken($color_background, 60);
   text-transform: uppercase;
+}
+
+
+.hide-mobile {
+  @media #{$md-screen} {
+    display: none !important;
+  }
+}
+
+.hide-screen {
+  @media #{$lg-screen} {
+    display: none !important;
+  }
 }
