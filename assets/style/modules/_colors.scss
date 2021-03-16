@@ -30,6 +30,4 @@ $white: lighten($color_secondary, 60);
 $color_text: $white;
 
 
-// $theme-colors: ("primary": $color_primary,
-//   "secondary": $color_secondary,
-//   "info": $color_accent);
+$theme-colors: ("accent": $color_accent);

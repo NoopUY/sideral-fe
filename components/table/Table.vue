@@ -62,7 +62,7 @@
         v-for="tag in data.value"
         :key="tag"
         class="ml-1"
-        :variant="tag.variant || 'info'"
+        :variant="tag.variant || 'accent'"
       >
         {{ tag }}
       </b-badge>

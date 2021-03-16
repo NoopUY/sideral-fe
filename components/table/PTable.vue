@@ -1,8 +1,11 @@
 <template>
   <div class="w-100 mt-5">
-    <div class="w-100 d-flex justify-content-end mb-2">
-      <Search />
+    <div class="w-100 d-flex align-items-center justify-content-end mb-2">
+      <div class="name mr-3">
+        {{ id }}
+      </div>
       <slot name="actions" />
+      <Search />
     </div>
 
     <Table
@@ -75,5 +78,8 @@ export default {
 </script>
 
 <style>
-
+  .name {
+    font-size: 1.8em;
+    text-transform: uppercase;
+  }
 </style>

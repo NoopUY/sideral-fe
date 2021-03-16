@@ -28,15 +28,13 @@
     </div>
 
     <div class="nav">
-      <b-link class="nav-item">
+      <!-- <b-link class="nav-item">
         <b-iconstack font-scale="1">
           <b-icon stacked icon="dash" scale="2" shift-v="-5" />
           <b-icon stacked icon="dash" scale="2" />
           <b-icon stacked icon="dash" scale="2" shift-v="5" />
         </b-iconstack>
-      </b-link>
-
-      <div class="nav-divider" />
+      </b-link> -->
 
       <b-link to="/home" class="nav-item">
         <fa :icon="['fas', 'compass']" />

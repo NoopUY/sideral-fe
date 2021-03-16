@@ -10,9 +10,9 @@
         @bulkActionClick="onBulkActionClick"
       >
         <template #actions>
-          <div class="ml-3">
-            <b-button variant="light" class="btn-circle btn-md">
-              <b-icon icon="plus" scale="1.5" />
+          <div class="mr-3">
+            <b-button variant="accent" size="sm" class="add-btn">
+              Add New
             </b-button>
           </div>
         </template>
@@ -87,3 +87,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+  .add-btn {
+    min-width: 100px;
+  }
+</style>
