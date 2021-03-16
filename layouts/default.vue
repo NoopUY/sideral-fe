@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <nav-bar />
-    <div class="content">
-      <Nuxt />
-    </div>
+    <Nuxt />
   </div>
 </template>
 
@@ -37,16 +35,14 @@ export default {
   top: 0px;
   background-color: $color_primary;
 
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-start;
+
   @media #{$md-screen} {
     flex-direction: column-reverse;
   }
-}
-
-.content {
-  width: 100%;
-  padding-left: $nav-width;
-  height: 100%;
-  min-height: 100vh;
 }
 
 </style>

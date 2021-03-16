@@ -28,6 +28,16 @@
     </div>
 
     <div class="nav">
+      <b-link class="nav-item">
+        <b-iconstack font-scale="1">
+          <b-icon stacked icon="dash" scale="2" shift-v="-5" />
+          <b-icon stacked icon="dash" scale="2" />
+          <b-icon stacked icon="dash" scale="2" shift-v="5" />
+        </b-iconstack>
+      </b-link>
+
+      <div class="nav-divider" />
+
       <b-link to="/home" class="nav-item">
         <fa :icon="['fas', 'compass']" />
       </b-link>
@@ -87,10 +97,8 @@ export default {
   @include flex(column-reverse, space-between);
   @include bar-border("right", $color_primary);
 
-  height: 100%;
   background-color: $color_primary;
   min-width: $nav-width;
-  position: fixed;
   padding: 20px 0px 20px 0px;
 
   a {
