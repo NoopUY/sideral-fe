@@ -20,7 +20,8 @@
 
 
 //Theme 3
-$color_accent: #77b2ff;
+$color_accent: #28c430;
+// $color_accent: #77b2ff;
 $accent_swatch: color-yiq($color_accent);
 $color_primary: #282e33;
 $color_secondary: #495158;
@@ -29,10 +30,11 @@ $color_tag: #2c5e3d;
 $black: #1e1e1e;
 $white: lighten($color_secondary, 60);
 $color_text: $white;
-$color_text_dark: lighten($color_primary, 5);
+$color_text_dark: lighten($color_primary, 10);
 
 
 $theme-colors: (
   "primary": $color_primary,
+  "secondary": $color_secondary,
   "accent": $color_accent, 
   "white": #FFFFFF);
