@@ -53,9 +53,9 @@ export default {
         actions: [
           {
             type: 'action',
-            action: 'batchEdit',
-            name: 'Edit',
-            icon: 'pencil',
+            action: 'batchView',
+            name: 'View/Edit',
+            icon: 'search',
             addToBulk: false
           },
           {
@@ -86,7 +86,7 @@ export default {
     ...mapActions({ fetchBatches: 'batches/fetch' }),
 
     onActionClick (action, item) {
-      if (action.action === 'batchEdit') {
+      if (action.action === 'batchView') {
         this.$router.push({ path: `batch/${item.item._id}` });
       }
     },

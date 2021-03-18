@@ -10,10 +10,50 @@ const batches = [{
   inoculated_at: moment().subtract(48, 'days').format(),
   first_rack_at: moment().subtract(28, 'days').format(),
   bottled_at: moment().subtract(2, 'days').format(),
-  density: [],
+  density: [{
+    date: moment().subtract(50, 'days').format(),
+    value: 1050
+  },
+  {
+    date: moment().subtract(40, 'days').format(),
+    value: 1035
+  },
+  {
+    date: moment().subtract(20, 'days').format(),
+    value: 1028
+  },
+  {
+    date: moment().subtract(10, 'days').format(),
+    value: 1018
+  },
+  {
+    date: moment().subtract(5, 'days').format(),
+    value: 1016
+  }
+  ],
   state: 'bottled',
   tags: ['fuji40', 'gsth60', '20°C', 'Pelliant'],
-  ph: []
+  ph: [{
+    date: moment().subtract(50, 'days').format(),
+    value: 7
+  },
+  {
+    date: moment().subtract(40, 'days').format(),
+    value: 5
+  },
+  {
+    date: moment().subtract(20, 'days').format(),
+    value: 3
+  },
+  {
+    date: moment().subtract(10, 'days').format(),
+    value: 3
+  },
+  {
+    date: moment().subtract(5, 'days').format(),
+    value: 2.3
+  }
+  ]
 },
 {
   _id: 'sa30293jfsdf2309423',

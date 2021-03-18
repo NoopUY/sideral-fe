@@ -18,13 +18,63 @@
     </page-header>
 
     <div class="d-flex justify-content-center">
-      <b-form>
+      <b-form class="w-50">
         <form-field
           v-model="batch.custom_id"
           label="#Custom id"
           description="A custom id that makes sense to you...its just for you"
           placeholder="Enter batch id"
           required
+        />
+
+        <form-field
+          v-model="batch.blend"
+          label="Blend"
+          description="Cider blend eg: fuji40/gth60"
+          placeholder="Enter blend"
+          required
+        />
+
+        <form-field
+          v-model="batch.description"
+          label="Description"
+          description="You can go wild here. Write notes, or whatever you need"
+          placeholder="Enter description"
+          required
+          type="textarea"
+        />
+
+        <form-field
+          v-model="batch.created_at"
+          label="Created at"
+          placeholder="Enter creation date"
+          type="date"
+        />
+
+        <form-field
+          v-model="batch.inoculated_at"
+          label="Inoculated at"
+          placeholder="Enter inoculation date"
+          type="date"
+        />
+
+        <form-field
+          v-model="batch.first_rack_at"
+          label="First racked at"
+          placeholder="Enter first rack date"
+          type="date"
+        />
+
+        <sampling-input
+          v-model="batch.density"
+          label="Density"
+          description="Density samples"
+        />
+
+        <sampling-input
+          v-model="batch.ph"
+          label="PH"
+          description="PH samples"
         />
       </b-form>
     </div>
@@ -38,7 +88,8 @@ export default {
 
   data: () => {
     return {
-      batch: {}
+      batch: {},
+      editMode: false
     };
   },
 
