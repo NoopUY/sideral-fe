@@ -66,6 +66,17 @@
       </b-badge>
     </template>
 
+    <template #cell(created_at)="{item}">
+      <div class="w-100 d-flex flex-column justify-content-center align-items-start">
+        <span class="field-master">{{ formatDate(item.created_at).date }}</span>
+        <span class="field-detail">{{ formatDate(item.created_at).fromNow }}</span>
+      </div>
+    </template>
+
+    <template #cell(custom_id)="{item}">
+      <b>{{ item.custom_id }}</b>
+    </template>
+
     <template #cell(actions)="data">
       <b-dropdown variant="clear" no-caret>
         <template #button-content>
@@ -97,6 +108,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   props: {
     id: {
@@ -145,6 +158,13 @@ export default {
   },
 
   methods: {
+    formatDate (date) {
+      return {
+        date: moment(date).format('DD MMM YYYY'),
+        time: moment(date).format('HH:mm'),
+        fromNow: moment(date).fromNow()
+      }
+    },
     onActionClick (action, item) {
       this.$emit('actionClick', action, item);
     },
@@ -180,8 +200,9 @@ export default {
 </script>
 
 <style lang="scss">
-
-  $pad: 25px;
+@import "@/assets/style/modules/_colors.scss";
+@import "@/assets/style/modules/_constants.scss";
+  $pad: 30px;
 
   table > thead > tr > th:first-child {
     padding-left: $pad;
@@ -199,4 +220,8 @@ export default {
     padding-right: $pad;
   }
 
+  .field-detail {
+    color: darken($color_background, 25);
+    font-size: 0.85em;
+  }
 </style>

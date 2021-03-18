@@ -3,21 +3,22 @@ import moment from 'moment';
 export default [{
   key: 'custom_id',
   label: '#Id',
-  thClass: 't-header'
-},
-{
-  key: 'blend',
-  label: 'Blend',
-  thClass: 't-header'
+  thClass: 't-header',
+  sortable: true
 },
 {
   key: 'created_at',
-  label: 'Start time',
+  label: 'created',
   formatter (value) {
     return value ? moment(value).fromNow() : '--'
   },
   sortable: true,
   tdClass: 'batch-td-hide-mobile',
+  thClass: 't-header'
+},
+{
+  key: 'blend',
+  label: 'Blend',
   thClass: 't-header'
 },
 {

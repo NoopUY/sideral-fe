@@ -19,6 +19,7 @@ export default {
 <style lang="scss">
 
 @import "@/assets/style/modules/_colors.scss";
+@import "@/assets/style/modules/_media.scss";
 
   #searchbox {
     display: flex;
@@ -29,6 +30,10 @@ export default {
     padding: 1px 10px;
     background-color: #ffffff;
     min-width: 300px;
+
+    @media #{$md-screen} {
+      width: 100%;
+    }
   }
 
   #searchbox-input {

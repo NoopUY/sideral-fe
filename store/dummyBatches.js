@@ -3,7 +3,7 @@ let id = 1000;
 
 const batches = [{
   _id: 'sa30293jfsdf23094u',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -17,7 +17,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf2309423',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -31,7 +31,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf230942',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -45,7 +45,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf230998',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -59,7 +59,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf2309099',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -73,7 +73,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094liu',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -87,7 +87,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23093hdy',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -101,7 +101,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094dnv',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First Batch',
   created_at: moment().subtract(50, 'days').format(),
@@ -115,7 +115,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf2309plm',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji40/gsth60',
   description: 'First.1 Batch',
   created_at: moment().subtract(45, 'days').format(),
@@ -129,7 +129,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094jjyt',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji50/gsth50',
   description: 'Second Batch',
   created_at: moment().subtract(30, 'days').format(),
@@ -143,7 +143,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf2309pmm',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji50/gsth50',
   description: 'Second.1 Batch',
   created_at: moment().subtract(27, 'days').format(),
@@ -157,7 +157,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf2309907f6',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: 'fuji50/gsth50',
   description: 'Second.2 Batch',
   created_at: moment().subtract(25, 'days').format(),
@@ -171,7 +171,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094f9',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: '100gsth',
   description: 'Third Batch',
   date: Date.now(),
@@ -186,7 +186,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094f1',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: '100gsth',
   description: 'Fourth Batch',
   date: Date.now(),
@@ -201,7 +201,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094ff',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: '100gsth',
   description: 'Fifth Batch',
   date: Date.now(),
@@ -216,7 +216,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094fg',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: '100gsth',
   description: 'Fresh Batch',
   date: Date.now(),
@@ -231,7 +231,7 @@ const batches = [{
 },
 {
   _id: 'sa30293jfsdf23094fh',
-  custom_id: ++id,
+  custom_id: String(++id),
   blend: '100gsth',
   description: 'Fresh.1 Batch',
   date: Date.now(),

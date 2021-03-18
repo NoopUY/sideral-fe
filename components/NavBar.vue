@@ -18,13 +18,6 @@
         size="3em"
         src="https://www.gravatar.com/avatar/6dd402bc320f5db641223a48bff9d17d.jpg"
       />
-      <!--
-      <b-link
-        class="nav-item"
-        @click="onSignOut()"
-      >
-        <fa :icon="['fas', 'sign-out-alt']" class="fa-rotate-180" />
-      </b-link> -->
 
       <b-link class="nav-item notification hide-mobile" to="/notifications">
         <fa :icon="['fas', 'bell']" />
@@ -46,31 +39,30 @@
         </b-button>
       </div>
 
-      <div class="nav-divider" />
+      <div class="nav-divider hide-screen" />
 
-      <b-link to="/home" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
+      <b-link to="/home" class="nav-item">
         <b-icon icon="house" />
         <h6 class="hide-screen ml-3 mb-0 text-uppercase">
           Home
         </h6>
       </b-link>
 
-      <b-link to="/batches" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
-        <!-- <fa :icon="['fas', 'wine-glass']" /> -->
+      <b-link to="/batches" class="nav-item">
         <b-icon icon="bucket" />
         <h6 class="hide-screen ml-3 mb-0 text-uppercase">
           Batches
         </h6>
       </b-link>
 
-      <b-link to="/stats" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
-        <b-icon icon="bar-chart-line" />
+      <b-link to="/stats" class="nav-item">
+        <b-icon icon="graph-up" />
         <h6 class="hide-screen ml-3 mb-0 text-uppercase">
           Stats
         </h6>
       </b-link>
 
-      <b-link to="/calculator" class="nav-item d-flex flex-row w-100 justify-content-start pl-4">
+      <b-link to="/calculator" class="nav-item">
         <b-icon icon="calculator" />
         <h6 class="hide-screen ml-3 mb-0 text-uppercase">
           Calculator
@@ -210,6 +202,12 @@ export default {
     flex-flow: row;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+    background-color: $color_primary;
+    height: $nav-width;
   }
 }
 

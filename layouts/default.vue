@@ -2,17 +2,13 @@
   <div id="app">
     <nav-bar />
     <div id="app-content" class="d-flex flex-column">
-      <div id="content-header" class="px-3 py-4 d-flex justify-content-between align-items-center">
-        <div id="page-name">
-          {{ pageName }}
-        </div>
-        <slot name="header-actions" />
-      </div>
+      <nuxt />
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   middleware: ['auth'],
   computed: {
@@ -36,7 +32,7 @@ export default {
   letter-spacing: 0.015em;
   font-size: 0.8em;
   position: absolute;
-  color: $white;
+  color: $color_text_dark;
   width: 100%;
   min-height: 100%;
   left: 0px;
@@ -49,22 +45,11 @@ export default {
   justify-content: flex-start;
 
   @media #{$md-screen} {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 }
 
 #app-content {
-  width: 100%;
+  flex-grow: 1;
 }
-
-#content-header {
-  color: $color_text_dark;
-  border-bottom: 1px solid darken($color_background, 5);
-}
-
-#page-name {
-  font-size: 1.8em;
-  text-transform: uppercase;
-}
-
 </style>

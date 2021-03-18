@@ -12,7 +12,7 @@
       />
     </span>
 
-    <b-pagination
+    <!-- <b-pagination
       v-model="currentPage"
       :total-rows="$store.getters[`${id}/count`]"
       :per-page="$store.getters[`${id}/limit`]"
@@ -32,7 +32,7 @@
         <i v-else> {{ page }}
         </i>
       </template>
-    </b-pagination>
+    </b-pagination> -->
   </div>
 </template>
 

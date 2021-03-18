@@ -1,40 +1,43 @@
 <template>
-  <page>
-    <template #page-content>
-      <PTable
-        id="batches"
-        :items="batchesData"
-        :fields="fieldsDef"
-        :busy="busy"
-        @actionClick="onActionClick"
-        @bulkActionClick="onBulkActionClick"
-      />
-    </template>
+  <div class="w-100">
+    <page-header>
+      <template #header-actions>
+        <div>
+          <b-button variant="white" class="button-header hide-mobile">
+            <b-icon icon="printer-fill" /> print
+          </b-button>
+          <b-button variant="white" class="button-header hide-mobile">
+            export <b-icon icon="caret-down-fill" />
+          </b-button>
+          <b-button variant="accent" class="button-header button-add">
+            <b-icon icon="plus" /> create new
+          </b-button>
+        </div>
+      </template>
+    </page-header>
 
-    <template #header-actions>
-      <div>
-        <b-button variant="white" class="button-header hide-mobile">
-          <b-icon icon="printer-fill" /> print
-        </b-button>
-        <b-button variant="white" class="button-header hide-mobile">
-          export <b-icon icon="caret-down-fill" />
-        </b-button>
-        <b-button variant="accent" class="button-header button-add">
-          <b-icon icon="plus" /> create new
-        </b-button>
-      </div>
-    </template>
-  </page>
+    <div class="mx-4 py-3 d-flex align-items-center justify-content-start content-header">
+      <Search placeholder="Search by code or name..." />
+    </div>
+
+    <Pagination id="batches" class="hide-mobile" />
+
+    <Table
+      id="batches"
+      :items="batchesData"
+      :fields="fieldsDef"
+      :busy="busy"
+      @actionClick="onActionClick"
+      @bulkActionClick="onBulkActionClick"
+    />
+  </div>
 </template>
 
 <script>
 import fieldsDef from '@/pages/batches/fields.js';
 import { mapGetters, mapActions } from 'vuex';
-import page from '@/layout/default';
 
 export default {
-  components: { page },
-  layout: 'empty',
   data: () => {
     return {
       fieldsDef,
@@ -52,7 +55,7 @@ export default {
             type: 'action',
             action: 'batchEdit',
             name: 'Edit',
-            icon: 'pencil-square',
+            icon: 'pencil',
             addToBulk: false
           },
           {
@@ -98,6 +101,7 @@ export default {
 
 <style lang="scss">
   @import "@/assets/style/modules/_colors.scss";
+  @import "@/assets/style/modules/_media.scss";
 
   .button-header {
     border: 2px solid darken($color_background, 10);
@@ -106,11 +110,16 @@ export default {
     text-transform: uppercase;
     font-size: 0.95em;
     font-weight: 700;
-    color:$color_text_dark;;
+    color:$color_text_dark;
   }
 
   .button-add {
     border: 2px solid darken($color_accent, 10);
+
+    @media #{$md-screen} {
+      width: 90vw;
+      padding: 10px 15px;
+    }
   }
 
 </style>

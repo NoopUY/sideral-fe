@@ -10,7 +10,7 @@ export const mixinState = () => ({
 export const mixinGetters = () => ({
   data: state => state.data,
   count: state => state.count,
-  find: state => id => state.data.find(d => d.id === id),
+  find: state => id => state.data.find(d => d._id === id),
   limit: state => state.limit,
   search: state => state.search,
   andFilters: state => state.andFilters,
