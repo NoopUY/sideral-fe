@@ -69,14 +69,6 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-@import '@/assets/style/modules/colors';
-
-  .sign-in-wrapper {
-    height: 100vh;
-  }
-</style>
-
 <script>
 import form from '@/mixins/form.js'
 import { email, required, minLength } from 'vuelidate/lib/validators'
@@ -122,3 +114,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import '@/assets/style/modules/colors';
+
+  .sign-in-wrapper {
+    height: 100vh;
+  }
+</style>

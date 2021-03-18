@@ -65,6 +65,7 @@
           type="date"
         />
 
+        <tag-input v-model="batch.tags" />
         <sampling-input
           v-model="batch.density"
           label="Density"
@@ -89,7 +90,8 @@ export default {
   data: () => {
     return {
       batch: {},
-      editMode: false
+      editMode: false,
+      tag: ''
     };
   },
 
@@ -102,3 +104,7 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+
+</style>
