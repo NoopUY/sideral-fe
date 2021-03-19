@@ -177,7 +177,7 @@ const batches = [{
   first_rack_at: moment().subtract(6, 'days').format(),
   bottled_at: null,
   density: [],
-  state: 'secondary_fermentation',
+  state: 'secondary',
   tags: ['fuji50', 'gsth50', '25°C'],
   ph: []
 },
@@ -191,7 +191,7 @@ const batches = [{
   first_rack_at: moment().subtract(3, 'days').format(),
   bottled_at: null,
   density: [],
-  state: 'secondary_fermentation',
+  state: 'secondary',
   tags: ['fuji50', 'gsth50', '25°C', 'QA-23'],
   ph: []
 },
@@ -205,7 +205,7 @@ const batches = [{
   first_rack_at: moment().subtract(1, 'days').format(),
   bottled_at: null,
   density: [],
-  state: 'secondary_fermentation',
+  state: 'secondary',
   tags: ['fuji50', 'gsth50', '10°C', 'EC-1118'],
   ph: []
 },
@@ -219,7 +219,7 @@ const batches = [{
   created_at: moment().subtract(10, 'days').format(),
   inoculated_at: moment().subtract(9, 'days').format(),
   first_rack_at: null,
-  state: 'primary_fermentation',
+  state: 'primary',
   tags: ['gsth100', '25°C', 'EC-1118'],
   bottled_at: null,
   ph: []
@@ -231,7 +231,7 @@ const batches = [{
   description: 'Fourth Batch',
   date: Date.now(),
   density: [],
-  state: 'primary_fermentation',
+  state: 'primary',
   tags: ['gsth100', '25°C', 'QA23'],
   created_at: moment().subtract(8, 'days').format(),
   inoculated_at: moment().subtract(7, 'days').format(),
@@ -246,7 +246,7 @@ const batches = [{
   description: 'Fifth Batch',
   date: Date.now(),
   density: [],
-  state: 'primary_fermentation',
+  state: 'primary',
   tags: ['gsth100', '25°C', 'QA23'],
   created_at: moment().subtract(5, 'days').format(),
   inoculated_at: moment().subtract(3, 'days').format(),

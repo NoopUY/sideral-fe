@@ -19,6 +19,10 @@ export const mixinGetters = () => ({
 
 export const mixinMutations = () => ({
   data: (state, data) => { state.data = data },
+  updateById: (state, item) => {
+    const idx = state.data.findIndex(d => d._id === item._id);
+    if (idx !== -1) { state.data[idx] = { ...item }; }
+  },
   count: (state, count) => { state.count = count },
   limit: (state, limit) => { state.limit = limit },
   andfilters: (state, andFilters) => { state.andFilters = andFilters },

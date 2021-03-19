@@ -7,8 +7,11 @@
 
       <template #header-actions>
         <div>
+          <b-button variant="white" class="button-header hide-mobile" @click="onSave()">
+            <b-icon icon="check2" /> Save
+          </b-button>
           <b-button variant="white" class="button-header hide-mobile">
-            <b-icon icon="printer-fill" /> print
+            <b-icon icon="printer-fill" /> Print
           </b-button>
           <b-button variant="danger" class="button-header text-white">
             <b-icon icon="trash-fill" /> Delete
@@ -19,10 +22,23 @@
 
     <div class="d-flex justify-content-center">
       <b-form class="w-50">
+        <wizard
+          v-model="batch.state"
+          :steps="['fresh', 'primary', 'secondary', 'bottled']"
+        />
+
+        <form-field
+          v-model="batch._id"
+          label="ID"
+          description="System ID, is automatically assigned and cannot be changed"
+          :disabled="true"
+          required
+        />
+
         <form-field
           v-model="batch.custom_id"
           label="#Custom id"
-          description="A custom id that makes sense to you...its just for you"
+          description="A custom id that makes sense to you. Mabye fermentation vessel id?"
           placeholder="Enter batch id"
           required
         />
@@ -66,6 +82,7 @@
         />
 
         <tag-input v-model="batch.tags" />
+
         <sampling-input
           v-model="batch.density"
           label="Density"
@@ -83,7 +100,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
 
@@ -91,7 +108,8 @@ export default {
     return {
       batch: {},
       editMode: false,
-      tag: ''
+      tag: '',
+      pristine: true
     };
   },
 
@@ -101,6 +119,16 @@ export default {
 
   mounted () {
     this.batch = { ...this.find(this.$route.params.id) };
+  },
+
+  methods: {
+
+    ...mapMutations({ update: 'batches/updateById' }),
+
+    onSave () {
+      this.update(this.batch);
+      this.$router.push('/batches');
+    }
   }
 };
 </script>
