@@ -48,6 +48,12 @@ export const actions = {
     dispatch('fetch');
   },
 
+  async update ({ commit, dispatch }, batch) {
+    // TODO: post to API and update store
+    commit('updateById', batch);
+    dispatch('fetch');
+  },
+
   async fetch ({ commit, state }) {
     const from = (state.currentPage - 1) * state.limit;
     const _filtered = batchesDummy.slice(from, state.limit + from);

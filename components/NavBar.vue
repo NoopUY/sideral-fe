@@ -16,8 +16,15 @@
       <b-avatar
         class="nav-avatar"
         size="3em"
-        src="https://www.gravatar.com/avatar/6dd402bc320f5db641223a48bff9d17d.jpg"
+        :src="avatarURL"
       />
+
+      <b-link
+        class="nav-item"
+        @click="onSignOut()"
+      >
+        <fa :icon="['fas', 'sign-out-alt']" class="fa-rotate-180" />
+      </b-link>
 
       <b-link class="nav-item notification hide-mobile" to="/notifications">
         <fa :icon="['fas', 'bell']" />
@@ -73,9 +80,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
+
   data: () => {
     return {
       hidden: true
@@ -84,13 +90,14 @@ export default {
   computed: {
     pageName () {
       return this.$route.name
+    },
+    avatarURL () {
+      return this?.$auth?.user?.picture ? this.$auth.user.picture : '';
     }
   },
   methods: {
-    ...mapActions({ signOut: 'session/sign-out' }),
-    onSignOut () {
-      this.signOut()
-      this.$router.replace({ path: '/sign-in' })
+    async onSignOut () {
+      await this.$auth.logout();
     }
   }
 }

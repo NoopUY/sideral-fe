@@ -9,7 +9,7 @@
           <b-button variant="white" class="button-header hide-mobile">
             export <b-icon icon="caret-down-fill" />
           </b-button>
-          <b-button variant="accent" class="button-header button-add">
+          <b-button variant="accent" class="button-header button-add" to="batch/new">
             <b-icon icon="plus" /> create new
           </b-button>
         </div>
@@ -47,6 +47,7 @@ export default {
 
   computed: {
     ...mapGetters({ batches: 'batches/data' }),
+
     batchesData () {
       return this.batches.map(b => ({
         ...b,
@@ -80,6 +81,7 @@ export default {
 
   mounted () {
     this.fetchBatches();
+    console.log(this.$auth);
   },
 
   methods: {
@@ -92,7 +94,9 @@ export default {
     },
 
     onBulkActionClick (action, items) {
+      // eslint-disable-next-line
       console.log(action);
+      // eslint-disable-next-line
       console.log(items);
     }
   }

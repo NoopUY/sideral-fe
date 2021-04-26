@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
@@ -109,7 +109,8 @@ export default {
       batch: {},
       editMode: false,
       tag: '',
-      pristine: true
+      pristine: true,
+      mode: 'edit'
     };
   },
 
@@ -118,15 +119,27 @@ export default {
   },
 
   mounted () {
-    this.batch = { ...this.find(this.$route.params.id) };
+    const _id = this.$route.params.id;
+    if (_id === 'new') {
+      this.mode = 'insert';
+      this.batch = {
+        created_at: Date.now(),
+        state: 'fresh'
+      }
+    } else {
+      this.batch = { ...this.find(_id) };
+    }
   },
 
   methods: {
 
-    ...mapMutations({ update: 'batches/updateById' }),
+    ...mapActions({
+      update: 'batches/updateById',
+      add: 'batches/add'
+    }),
 
     onSave () {
-      this.update(this.batch);
+      if (this.mode === 'insert') { this.add(this.batch); } else { this.update(this.batch); }
       this.$router.push('/batches');
     }
   }
