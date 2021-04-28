@@ -5,30 +5,29 @@ export default {
   }),
 
   methods: {
-    undoAction ({ action, delay, undo, exec }) {
+    delayAction ({ action, delay, exec, undo }) {
       // Use a shorter name for `this.$createElement`
       const h = this.$createElement
 
       // Create a ID with a incremented count
-      const id = `toast-undo-${this.count++}`
-      let undone = false;
+      const id = `toast-delaycancel-${this.count++}`
 
-      const hideTO = setTimeout(() => {
+      const execTO = setTimeout(() => {
         if (exec) { exec(); }
         this.$bvToast.hide(id)
       }, delay)
 
+      const countdown = Math.floor(delay / 1000);
+
       // Create the custom close button
-      const $undoButton = h(
+      const $cancelButton = h(
         'b-button',
         {
           on: {
             click: () => {
               this.$bvToast.hide(id);
-              if (!undone) {
-                undone = true;
-                undo();
-              }
+              clearTimeout(execTO);
+              if (undo) { undo() }
             }
           },
 
@@ -39,7 +38,7 @@ export default {
 
           class: ['font-weight-bolder']
         },
-        'Cancel'
+        ['Cancel']
       )
 
       // Create the custom close button
@@ -48,7 +47,6 @@ export default {
         {
           on: {
             click: () => {
-              clearTimeout(hideTO);
               this.$bvToast.hide(id);
             }
           },
@@ -68,14 +66,14 @@ export default {
       const $actions = h(
         'span',
         {},
-        [$undoButton, $closeButton]
+        [$cancelButton, $closeButton]
       );
 
       const $body = h(
         'span',
         { class: ['w-100', 'd-flex', 'justify-content-between', 'align-items-center'] },
         [
-          h('span', `${action}...`),
+          h('span', `${action} in ${countdown}s... `),
           $actions
         ]
       );

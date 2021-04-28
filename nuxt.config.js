@@ -21,7 +21,8 @@ export default {
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '@/plugins/vuelidate.js',
-    '@/plugins/moment.js'
+    '@/plugins/moment.js',
+    '@/plugins/axios.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -100,5 +101,10 @@ export default {
 
     port: 8000, // default: 3000
     host: '0.0.0.0' // default: localhost
-  } // other configs
+  }, // other configs
+
+  env: {
+    apiUrl: 'http://localhost:3000/api/v1',
+    dev: true
+  }
 }

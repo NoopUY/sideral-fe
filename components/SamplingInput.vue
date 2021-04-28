@@ -61,8 +61,11 @@
           </b-td>
           <b-td>
             <div class="w-100 d-flex flex-row justify-content-end align-items-center">
-              <b-button variant="light" class="text-danger p-0" size="sm" @click="onDelete(index)">
+              <b-button v-if="!item.editMode" variant="light" class="text-danger p-0" size="sm" @click="onDelete(index)">
                 <b-icon icon="x" scale="1.4" />
+              </b-button>
+              <b-button v-else variant="light" class="text-success p-0" size="sm" @click="onAccept(index)">
+                <b-icon icon="check" scale="1.4" />
               </b-button>
             </div>
           </b-td>
@@ -112,16 +115,26 @@ export default {
   },
 
   methods: {
-    onChange () {
-      this.$emit('input', this.modelValue);
-    },
 
     onDelete (index) {
       const element = this.modelValue[index];
       this.modelValue.splice(index, 1);
-      this.undoAction(`Deleting ${this.description}`, 5000, () => {
-        this.modelValue.splice(index, 0, element);
+      this.$emit('input', this.modelValue.map(m => ({ date: m.date, value: m.value })));
+
+      this.undoAction({
+        action: `${this.description} deleted`,
+        delay: 5000,
+        undo: () => {
+          this.modelValue.splice(index, 0, element);
+          this.$emit('input', this.modelValue.map(m => ({ date: m.date, value: m.value })));
+        }
+
       })
+    },
+
+    onAccept (index) {
+      this.modelValue[index].editMode = false;
+      this.$emit('input', this.modelValue.map(m => ({ date: m.date, value: m.value })));
     },
 
     formatDate (date) {

@@ -17,7 +17,7 @@
     </page-header>
 
     <div class="mx-4 py-3 d-flex align-items-center justify-content-start content-header">
-      <Search placeholder="Search by code or name..." />
+      <Search id="batches" placeholder="Search by code or name..." />
     </div>
 
     <Pagination id="batches" class="hide-mobile" />
@@ -35,9 +35,12 @@
 
 <script>
 import fieldsDef from '@/pages/batches/fields.js';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+import delayAction from '@/mixins/delayAction'
 
 export default {
+  mixins: [delayAction],
+
   data: () => {
     return {
       fieldsDef,
@@ -58,6 +61,13 @@ export default {
             name: 'View/Edit',
             icon: 'search',
             addToBulk: false
+          },
+          {
+            type: 'action',
+            action: 'batchDuplicate',
+            name: 'Duplicate',
+            icon: 'clipboard-plus',
+            addToBulk: true
           },
           {
             type: 'divider'
@@ -81,23 +91,83 @@ export default {
 
   mounted () {
     this.fetchBatches();
-    console.log(this.$auth);
   },
 
   methods: {
-    ...mapActions({ fetchBatches: 'batches/fetch' }),
+    ...mapActions({
+      fetchBatches: 'batches/fetch',
+      deleteBatch: 'batches/delete',
+      addBatch: 'batches/add'
+    }),
+
+    ...mapMutations({
+      softDeleteBatch: 'batches/delete'
+    }),
 
     onActionClick (action, item) {
-      if (action.action === 'batchView') {
-        this.$router.push({ path: `batch/${item.item._id}` });
+      switch (action.action) {
+        case 'batchView':
+          this.$router.push({ path: `batch/${item.item._id}` });
+          break;
+
+        case 'batchDelete':
+          this.softDeleteBatch(item.item);
+
+          this.delayAction({
+            action: `Deleting batch ${item.item.custom_id}`,
+            delay: 5000,
+            exec: this.deleteBatch.bind(this, item.item),
+            undo: this.fetchBatches.bind(this)
+          })
+
+          break;
+
+        case 'batchDuplicate':
+          // eslint-disable-next-line
+          let dup = { ...item.item };
+          delete dup._id;
+          this.addBatch(dup);
+          break;
+
+        default:
+          break;
       }
     },
 
     onBulkActionClick (action, items) {
-      // eslint-disable-next-line
-      console.log(action);
-      // eslint-disable-next-line
-      console.log(items);
+      switch (action.action) {
+        case 'batchDelete':
+
+          for (const item of items) {
+            this.softDeleteBatch(item);
+          }
+
+          this.delayAction({
+            action: `Deleting ${items.length} batches`,
+            delay: 5000,
+            exec: () => {
+              for (const item of items) {
+                this.deleteBatch(item)
+              }
+            },
+            undo: this.fetchBatches.bind(this)
+          })
+
+          break;
+
+        case 'batchDuplicate':
+          for (const item of items) {
+            // eslint-disable-next-line
+            let dup = { ...item };
+            delete dup._id;
+            this.addBatch(dup);
+          }
+
+          break;
+
+        default:
+          break;
+      }
     }
   }
 };

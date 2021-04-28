@@ -16,30 +16,27 @@
       <b-form-checkbox :checked="allSelected" @change="onSelectAll" />
     </template>
 
-    <!-- <template v-if="selectedItems.length > 0" #thead-top>
+    <template v-if="selectedItems.length > 0" #thead-top>
       <b-tr>
-        <b-th colspan="2">
-          <b-dropdown text="Actions">
-            <span v-for="action in modelItems[0].actions" :key="action.action">
-              <b-dropdown-item
-                v-if="action.type === 'action' && action.addToBulk"
-                :disabled="
-                  ($nuxt.$loading && $nuxt.$loading.show) || action.disabled
-                "
-                @click="onBulkActionClick(action)"
-              >
-                <span
-                  :class="`d-flex justify-content-between ${action.class}`"
-                >
-                  <b-icon :icon="action.icon" class="mr-3" />
-                  {{ action.name }} selected
-                </span>
-              </b-dropdown-item>
-            </span>
-          </b-dropdown>
+        <b-th colspan="100" class="pl-3">
+          <span v-for="action in modelItems[0].actions" :key="action.action">
+            <b-button
+              v-if="action.type === 'action' && action.addToBulk"
+              v-b-tooltip.hover
+              :title="`${action.name} selected`"
+              :disabled="
+                ($nuxt.$loading && $nuxt.$loading.show) || action.disabled
+              "
+              variant="light"
+              :class="`${action.class}`"
+              @click="onBulkActionClick(action)"
+            >
+              <b-icon :icon="action.icon" />
+            </b-button>
+          </span>
         </b-th>
       </b-tr>
-    </template> -->
+    </template>
 
     <template #table-busy>
       <div class="text-center my-2">
@@ -78,7 +75,7 @@
     </template>
 
     <template #cell(actions)="data">
-      <b-dropdown variant="clear" no-caret>
+      <b-dropdown variant="clear" no-caret boundary="viewport">
         <template #button-content>
           <b-icon icon="three-dots-vertical" variant="primary" />
         </template>

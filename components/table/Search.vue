@@ -1,7 +1,7 @@
 <template>
-  <div id="searchbox">
-    <b-form-input id="searchbox-input" type="text" size="sm" :placeholder="placeholder" />
-    <b-icon id="searchbox-icon" icon="search" scale="1.3" variant="accent" class="mr-2" />
+  <div :id="id" class="searchbox">
+    <b-form-input v-model="search" class="searchbox-input" type="text" size="sm" :placeholder="placeholder" />
+    <b-icon icon="search" scale="1.3" variant="accent" class="mr-2 searchbox-icon" />
   </div>
 </template>
 
@@ -11,6 +11,17 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    id: { type: String, required: true }
+  },
+  computed: {
+    search: {
+      set (search) {
+        this.$store.commit(this.id + '/search', search);
+      },
+      get () {
+        return this.$store.getters[this.id + '/search'];
+      }
     }
   }
 }
@@ -21,7 +32,7 @@ export default {
 @import "@/assets/style/modules/_colors.scss";
 @import "@/assets/style/modules/_media.scss";
 
-  #searchbox {
+  .searchbox {
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
@@ -36,7 +47,7 @@ export default {
     }
   }
 
-  #searchbox-input {
+  .searchbox-input {
     border-color: transparent;
     flex:1;
     background-color: transparent;

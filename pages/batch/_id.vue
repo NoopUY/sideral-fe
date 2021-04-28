@@ -134,7 +134,7 @@ export default {
   methods: {
 
     ...mapActions({
-      update: 'batches/updateById',
+      update: 'batches/update',
       add: 'batches/add'
     }),
 
