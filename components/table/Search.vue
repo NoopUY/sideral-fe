@@ -1,7 +1,14 @@
 <template>
   <div :id="id" class="searchbox">
-    <b-form-input v-model="search" class="searchbox-input" type="text" size="sm" :placeholder="placeholder" />
-    <b-icon icon="search" scale="1.3" variant="accent" class="mr-2 searchbox-icon" />
+    <b-form-input
+      v-model="search"
+      class="searchbox-input"
+      type="text"
+      size="sm"
+      :placeholder="placeholder"
+      @keyup.enter="fetch"
+    />
+    <b-icon icon="search" scale="1.3" variant="accent" class="mr-2 searchbox-icon" @click="fetch" />
   </div>
 </template>
 
@@ -23,7 +30,13 @@ export default {
         return this.$store.getters[this.id + '/search'];
       }
     }
+  },
+  methods: {
+    fetch () {
+      this.$store.dispatch(this.id + '/fetch');
+    }
   }
+
 }
 </script>
 

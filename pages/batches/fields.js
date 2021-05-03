@@ -23,6 +23,16 @@ export default [
     thClass: 't-header'
   },
   {
+    key: 'yeast',
+    label: 'Yeast',
+    thClass: 't-header'
+  },
+  {
+    key: 'liters',
+    label: 'Liters',
+    thClass: 't-header'
+  },
+  {
     key: 'state',
     label: 'State',
     thClass: 't-header'

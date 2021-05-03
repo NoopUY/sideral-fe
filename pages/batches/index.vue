@@ -20,7 +20,7 @@
       <Search id="batches" placeholder="Search by code or name..." />
     </div>
 
-    <Pagination id="batches" class="hide-mobile" />
+    <!-- <Pagination id="batches" class="hide-mobile" /> -->
 
     <Table
       id="batches"

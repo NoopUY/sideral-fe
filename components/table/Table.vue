@@ -1,107 +1,129 @@
 <template>
-  <b-table
-    :id="id"
-    :ref="`ref_${id}`"
-    striped
-    hover
-    :items="modelItems"
-    :fields="modelFields"
-    :busy="modelBusy"
-    select-mode="range"
-    :selectable="true"
-    responsive
-    @row-selected="onRowSelected"
-  >
-    <template #head(check)>
-      <b-form-checkbox :checked="allSelected" @change="onSelectAll" />
-    </template>
-
-    <template v-if="selectedItems.length > 0" #thead-top>
-      <b-tr>
-        <b-th colspan="100" class="pl-3">
-          <span v-for="action in modelItems[0].actions" :key="action.action">
-            <b-button
-              v-if="action.type === 'action' && action.addToBulk"
-              v-b-tooltip.hover
-              :title="`${action.name} selected`"
-              :disabled="
-                ($nuxt.$loading && $nuxt.$loading.show) || action.disabled
-              "
-              variant="light"
-              :class="`${action.class}`"
-              @click="onBulkActionClick(action)"
-            >
-              <b-icon :icon="action.icon" />
-            </b-button>
-          </span>
-        </b-th>
-      </b-tr>
-    </template>
-
-    <template #table-busy>
-      <div class="text-center my-2">
-        <b-spinner class="align-middle mr-2" />
-        <strong>Loading...</strong>
-      </div>
-    </template>
-
-    <template #cell(check)="data">
-      <b-form-checkbox
-        :checked="data.rowSelected"
-        @change="onSelectRow($event, data)"
-      />
-    </template>
-
-    <template #cell(tags)="data">
-      <b-badge
-        v-for="tag in data.value"
-        :key="tag"
-        class="ml-1"
-        :variant="tag.variant || 'accent'"
-      >
-        {{ tag }}
-      </b-badge>
-    </template>
-
-    <template #cell(created_at)="{item}">
-      <div class="w-100 d-flex flex-column justify-content-center align-items-start">
-        <span class="field-master">{{ formatDate(item.created_at).date }}</span>
-        <span class="field-detail">{{ formatDate(item.created_at).fromNow }}</span>
-      </div>
-    </template>
-
-    <template #cell(custom_id)="{item}">
-      <b>{{ item.custom_id }}</b>
-    </template>
-
-    <template #cell(actions)="data">
-      <b-dropdown variant="clear" no-caret boundary="viewport">
-        <template #button-content>
-          <b-icon icon="three-dots-vertical" variant="primary" />
-        </template>
-
-        <span v-for="action in data.value" :key="action.action">
-          <b-dropdown-item
-            v-if="action.type === 'action'"
+  <div>
+    <Pagination :id="id" class="hide-mobile">
+      <span v-if="selectedItems.length > 0" class="mr-4">
+        <span v-for="action in modelItems[0].actions" :key="action.action">
+          <b-button
+            v-if="action.type === 'action' && action.addToBulk"
+            v-b-tooltip.hover
+            :title="`${action.name} selected`"
             :disabled="
               ($nuxt.$loading && $nuxt.$loading.show) || action.disabled
             "
-            @click="onActionClick(action, data)"
+            variant="light"
+            :class="`${action.class} p-0 mr-3` "
+            @click="onBulkActionClick(action)"
           >
-            <div :class="`d-flex justify-content-between ${action.class}`">
-              <b-icon :icon="action.icon" />
-              {{ action.name }}
-            </div>
-          </b-dropdown-item>
-
-          <b-dropdown-divider v-if="action.type === 'divider'" />
-          <b-dropdown-header v-if="action.type === 'header'">
-            {{ action.title }}
-          </b-dropdown-header>
+            <b-icon :icon="action.icon" />
+          </b-button>
         </span>
-      </b-dropdown>
-    </template>
-  </b-table>
+      </span>
+    </Pagination>
+
+    <b-table
+      :id="id"
+      :ref="`ref_${id}`"
+      striped
+      hover
+      :items="modelItems"
+      :fields="modelFields"
+      :busy="modelBusy"
+      :selectable="false"
+      responsive
+      @row-clicked="onRowClicked"
+    >
+      <template #head(check)>
+        <b-form-checkbox :checked="allSelected" size="lg" @change="onSelectAll" />
+      </template>
+
+      <template #row-details="row">
+        <b-card>
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right">
+              <b>Age:</b>
+            </b-col>
+            <b-col>{{ row.item.age }}</b-col>
+          </b-row>
+
+          <b-row class="mb-2">
+            <b-col sm="3" class="text-sm-right">
+              <b>Is Active:</b>
+            </b-col>
+            <b-col>{{ row.item.isActive }}</b-col>
+          </b-row>
+
+          <b-button size="sm" @click="row.toggleDetails">
+            Hide Details
+          </b-button>
+        </b-card>
+      </template>
+
+      <template #table-busy>
+        <div class="text-center my-2">
+          <b-spinner class="align-middle mr-2" />
+          <strong>Loading...</strong>
+        </div>
+      </template>
+
+      <template #cell(check)="data">
+        <b-form-checkbox
+          :checked="isSelected(data.item)"
+          size="lg"
+          @change="onSelectRow($event, data)"
+        />
+      </template>
+
+      <template #cell(tags)="data">
+        <b-badge
+          v-for="tag in data.value"
+          :key="tag"
+          class="ml-1"
+          :variant="tag.variant || 'accent'"
+        >
+          {{ tag }}
+        </b-badge>
+      </template>
+
+      <template #cell(created_at)="{item}">
+        <div class="w-100 d-flex flex-column justify-content-center align-items-start">
+          <span class="field-master">{{ formatDate(item.created_at).date }}</span>
+          <span class="field-detail">{{ formatDate(item.created_at).fromNow }}</span>
+        </div>
+      </template>
+
+      <template #cell(custom_id)="{item}">
+        <b>{{ item.custom_id }}</b>
+      </template>
+
+      <template #cell(actions)="data">
+        <b-dropdown variant="clear" no-caret boundary="viewport">
+          <template #button-content>
+            <b-icon icon="three-dots-vertical" variant="primary" class="cursor-auto" />
+          </template>
+
+          <span v-for="action in data.value" :key="action.action">
+            <b-dropdown-item
+              v-if="action.type === 'action'"
+              :disabled="
+                ($nuxt.$loading && $nuxt.$loading.show) || action.disabled
+              "
+              @click="onActionClick(action, data)"
+            >
+              <div :class="`d-flex justify-content-between ${action.class}`">
+                <b-icon :icon="action.icon" />
+                {{ action.name }}
+              </div>
+            </b-dropdown-item>
+
+            <b-dropdown-divider v-if="action.type === 'divider'" />
+            <b-dropdown-header v-if="action.type === 'header'">
+              {{ action.title }}
+            </b-dropdown-header>
+          </span>
+        </b-dropdown>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -135,9 +157,14 @@ export default {
     modelItems: [],
     modelFields: [],
     modelBusy: false,
-    selectedItems: [],
-    allSelected: false
+    selectedItems: []
   }),
+
+  computed: {
+    allSelected () {
+      return this.selectedItems.length === this.modelItems.length;
+    }
+  },
 
   watch: {
     items (val) {
@@ -155,6 +182,11 @@ export default {
   },
 
   methods: {
+    isSelected (item) {
+      const idx = this.selectedItems.findIndex(i => i._id === item._id);
+      return idx !== -1
+    },
+
     formatDate (date) {
       return {
         date: moment(date).format('DD MMM YYYY'),
@@ -175,12 +207,29 @@ export default {
       this.allSelected = this.selectedItems.length === this.modelItems.length;
     },
 
-    onSelectRow (evt, row) {
-      if (evt) { this.$refs[`ref_${this.id}`].selectRow(row.index); } else { this.$refs[`ref_${this.id}`].unselectRow(row.index); }
+    onRowClicked (row) {
+      this.$set(row, '_showDetails', !row._showDetails)
+    },
+
+    onSelectRow (evt, { item }) {
+      if (evt) {
+        this.selectedItems.push(item)
+      } else {
+        const idx = this.selectedItems.findIndex(i => i._id === item._id);
+        if (idx !== -1) { this.selectedItems.splice(idx, 1); }
+      }
+    },
+
+    selectAllRows () {
+      this.selectedItems = [...this.modelItems];
+    },
+
+    clearSelected () {
+      this.selectedItems = [];
     },
 
     onSelectAll (evt) {
-      if (evt) { this.$refs[`ref_${this.id}`].selectAllRows(); } else { this.$refs[`ref_${this.id}`].clearSelected(); }
+      evt ? this.selectAllRows() : this.clearSelected();
     },
 
     mixinFields (fields) {
@@ -200,6 +249,14 @@ export default {
 @import "@/assets/style/modules/_colors.scss";
 @import "@/assets/style/modules/_constants.scss";
   $pad: 30px;
+
+  .cursor-auto {
+    cursor: auto !important;
+  }
+
+  table > tbody > tr {
+    cursor: pointer;
+  }
 
   table > thead > tr > th:first-child {
     padding-left: $pad;

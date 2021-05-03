@@ -16,6 +16,17 @@
       @input="onChange"
     />
 
+    <b-form-input
+      v-if="type === 'number'"
+      :id="`input-${id}`"
+      v-model="modelValue"
+      type="number"
+      :placeholder="placeholder"
+      required
+      :disabled="disabled"
+      @input="onChange"
+    />
+
     <b-form-textarea
       v-if="type === 'textarea'"
       :id="`input-${id}`"

@@ -1,7 +1,10 @@
 
 <template>
   <div id="pagination" class="w-100 px-4 py-3 d-flex justify-content-around align-items-center">
+    <slot class="flex-grow-1" />
+
     <span class="flex-grow-1">{{ showing }}</span>
+
     <span class="mr-3">
       Results per page:
       <b-form-select

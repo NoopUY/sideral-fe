@@ -52,13 +52,38 @@
         />
 
         <form-field
+          v-model="batch.liters"
+          label="Batch size"
+          description="Batch size (usually in liters but can use whatever you prefer). Eg: 500"
+          placeholder="Enter size"
+          required
+        />
+
+        <form-field
+          v-model="batch.yeast"
+          label="Yeast"
+          description="Yeast used for primary/secondary fermentation"
+          placeholder="Enter yeast"
+        />
+
+        <form-field
           v-model="batch.description"
           label="Description"
-          description="You can go wild here. Write notes, or whatever you need"
           placeholder="Enter description"
           required
           type="textarea"
         />
+
+        <form-field
+          v-model="batch.observations"
+          label="Additional observations"
+          placeholder="Enter observations"
+          description="You can go wild here. Write notes, or whatever you need"
+          required
+          type="textarea"
+        />
+
+        <tag-input v-model="batch.tags" />
 
         <form-field
           v-model="batch.created_at"
@@ -80,8 +105,6 @@
           placeholder="Enter first rack date"
           type="date"
         />
-
-        <tag-input v-model="batch.tags" />
 
         <sampling-input
           v-model="batch.density"
