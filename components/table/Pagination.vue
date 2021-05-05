@@ -6,7 +6,7 @@
     <span class="flex-grow-1">{{ showing }}</span>
 
     <span class="mr-3">
-      Results per page:
+      {{ $t('ResultsPerPage') }}:
       <b-form-select
         v-model="limit"
         :options="options"
@@ -22,8 +22,8 @@
       :aria-controls="`${id}-list`"
       :disabled="$nuxt.$loading && $nuxt.$loading.show"
       hide-goto-end-buttons
-      prev-text="Previous"
-      next-text="Next"
+      :prev-text="$t('Previous')"
+      :next-text="$t('Next')"
       size="sm"
       class="mb-0"
     >
@@ -77,7 +77,7 @@ export default {
       const currentPage = this.$store.getters[this.id + '/currentPage'];
       const from = totalRows ? ((currentPage - 1) * perPage) + 1 : 0;
       const to = currentPage * perPage <= totalRows ? currentPage * perPage : totalRows;
-      return `Showing ${from} - ${to} of ${totalRows} results`;
+      return `${this.$t('Showing')} ${from} - ${to} ${this.$t('of')} ${totalRows} ${this.$t('results')}`;
     }
   }
 };

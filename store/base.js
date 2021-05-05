@@ -55,9 +55,9 @@ export const mixinActions = resource => ({
     commit('count', payload.total_records);
   },
 
-  async fetchById ({ state }, element) {
-    const { payload } = await this.$axios.$get(`/${resource}/${element.id}`);
-    return payload.data
+  async fetchById ({ state }, _id) {
+    const { payload } = await this.$axios.$get(`/${resource}/${_id}`);
+    return payload
   },
 
   async delete ({ commit }, element) {

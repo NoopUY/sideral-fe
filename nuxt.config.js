@@ -52,7 +52,32 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
 
+    'nuxt-i18n',
+
     '@nuxtjs/auth-next'],
+
+  i18n: {
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      onlyOnRoot: true // recommended
+    },
+    locales: [
+      {
+        code: 'en',
+        name: 'English',
+        file: 'en.json'
+      },
+      {
+        code: 'es',
+        name: 'Español',
+        file: 'es.json'
+      }
+    ],
+    defaultLocale: 'es',
+    lazy: true,
+    langDir: 'locales/'
+  },
 
   bootstrapVue: {
     bootstrapCSS: false,
@@ -84,7 +109,7 @@ export default {
         domain: 'dev-2yfbgjq3.us.auth0.com',
         clientId: 'nLbsrwpaRUJ3Rk83Wz2IflkZE3BkqUTL',
         logoutRedirectUri: 'https://localhost:8000/login',
-        audience: 'https://localhost:3000'
+        audience: 'https://sideral.herokuapp.com'
       }
     }
   },
@@ -104,7 +129,7 @@ export default {
   }, // other configs
 
   env: {
-    apiUrl: 'http://localhost:3000/api/v1',
+    apiUrl: 'https://sideral.herokuapp.com/api/v1',
     dev: true
   }
 }

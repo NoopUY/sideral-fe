@@ -48,31 +48,17 @@
 
       <div class="nav-divider hide-screen" />
 
-      <b-link to="/home" class="nav-item">
+      <!-- <b-link to="/home" class="nav-item">
         <b-icon icon="house" />
         <h6 class="hide-screen ml-3 mb-0 text-uppercase">
           Home
         </h6>
-      </b-link>
+      </b-link> -->
 
-      <b-link to="/batches" class="nav-item">
+      <b-link :to="localePath('batches')" class="nav-item">
         <b-icon icon="bucket" />
         <h6 class="hide-screen ml-3 mb-0 text-uppercase">
-          Batches
-        </h6>
-      </b-link>
-
-      <b-link to="/stats" class="nav-item">
-        <b-icon icon="graph-up" />
-        <h6 class="hide-screen ml-3 mb-0 text-uppercase">
-          Stats
-        </h6>
-      </b-link>
-
-      <b-link to="/calculator" class="nav-item">
-        <b-icon icon="calculator" />
-        <h6 class="hide-screen ml-3 mb-0 text-uppercase">
-          Calculator
+          {{ $t('batches') }}
         </h6>
       </b-link>
     </div>
@@ -103,7 +89,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/style/modules/_colors.scss";
 @import "@/assets/style/modules/_media.scss";
 @import "@/assets/style/modules/_constants.scss";

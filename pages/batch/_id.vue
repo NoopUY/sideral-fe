@@ -1,20 +1,17 @@
 <template>
   <div class="w-100">
-    <page-header>
+    <page-header back>
       <template #page-name>
-        Batch #{{ batch.custom_id }}
+        {{ $t("batch") }} #{{ batch.custom_id }}
       </template>
 
       <template #header-actions>
         <div>
           <b-button variant="white" class="button-header hide-mobile" @click="onSave()">
-            <b-icon icon="check2" /> Save
+            <b-icon icon="check2" /> {{ $t("save") }}
           </b-button>
           <b-button variant="white" class="button-header hide-mobile">
-            <b-icon icon="printer-fill" /> Print
-          </b-button>
-          <b-button variant="danger" class="button-header text-white">
-            <b-icon icon="trash-fill" /> Delete
+            <b-icon icon="printer-fill" /> {{ $t("print") }}
           </b-button>
         </div>
       </template>
@@ -24,109 +21,89 @@
       <b-form class="w-50">
         <wizard
           v-model="batch.state"
-          :steps="['fresh', 'primary', 'secondary', 'bottled']"
+          :steps="[`${$t('fresh')}`, `${$t('primary')}`, `${$t('secondary')}`, `${$t('bottled')}`]"
         />
 
-        <form-field
-          v-model="batch._id"
-          label="ID"
-          description="System ID, is automatically assigned and cannot be changed"
-          :disabled="true"
-          required
-        />
+        <b-tabs content-class="mt-3" class="flex-row">
+          <b-tab :title="$t('BaseInfo')" active>
+            <form-field
+              v-model="batch.custom_id"
+              label="field_batchCustomID"
+              required
+            />
 
-        <form-field
-          v-model="batch.custom_id"
-          label="#Custom id"
-          description="A custom id that makes sense to you. Mabye fermentation vessel id?"
-          placeholder="Enter batch id"
-          required
-        />
+            <form-field
+              v-model="batch.blend"
+              label="field_batchBlend"
+              required
+            />
 
-        <form-field
-          v-model="batch.blend"
-          label="Blend"
-          description="Cider blend eg: fuji40/gth60"
-          placeholder="Enter blend"
-          required
-        />
+            <form-field
+              v-model="batch.liters"
+              label="field_batchSize"
+              required
+            />
 
-        <form-field
-          v-model="batch.liters"
-          label="Batch size"
-          description="Batch size (usually in liters but can use whatever you prefer). Eg: 500"
-          placeholder="Enter size"
-          required
-        />
+            <form-field
+              v-model="batch.yeast"
+              label="field_batchYeast"
+              description="Yeast used for primary/secondary fermentation"
+              placeholder="Enter yeast"
+            />
 
-        <form-field
-          v-model="batch.yeast"
-          label="Yeast"
-          description="Yeast used for primary/secondary fermentation"
-          placeholder="Enter yeast"
-        />
+            <form-field
+              v-model="batch.description"
+              label="field_batchDescription"
+              required
+            />
 
-        <form-field
-          v-model="batch.description"
-          label="Description"
-          placeholder="Enter description"
-          required
-          type="textarea"
-        />
+            <form-field
+              v-model="batch.observations"
+              label="field_batchObservations"
+              required
+              type="textarea"
+            />
 
-        <form-field
-          v-model="batch.observations"
-          label="Additional observations"
-          placeholder="Enter observations"
-          description="You can go wild here. Write notes, or whatever you need"
-          required
-          type="textarea"
-        />
+            <tag-input v-model="batch.tags" />
+          </b-tab>
 
-        <tag-input v-model="batch.tags" />
-
-        <form-field
-          v-model="batch.created_at"
-          label="Created at"
-          placeholder="Enter creation date"
-          type="date"
-        />
-
-        <form-field
-          v-model="batch.inoculated_at"
-          label="Inoculated at"
-          placeholder="Enter inoculation date"
-          type="date"
-        />
-
-        <form-field
-          v-model="batch.first_rack_at"
-          label="First racked at"
-          placeholder="Enter first rack date"
-          type="date"
-        />
-
-        <sampling-input
-          v-model="batch.density"
-          label="Density"
-          description="Density samples"
-        />
-
-        <sampling-input
-          v-model="batch.ph"
-          label="PH"
-          description="PH samples"
-        />
+          <b-tab :title="$t('Events')">
+            <events-input
+              v-model="batch.events"
+              label="Events"
+            />
+          </b-tab>
+        </b-tabs>
       </b-form>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
 
+  async asyncData ($context) {
+    const _id = $context.params.id;
+
+    const data = {
+      batch: {},
+      mode: 'edit'
+    };
+
+    if (_id === 'new') {
+      data.mode = 'insert';
+      data.batch = {
+        created_at: Date.now(),
+        state: 'fresh'
+      }
+    } else {
+      data.batch = await $context.store.dispatch('batches/fetchById', _id);
+    }
+
+    return data;
+  },
   data: () => {
     return {
       batch: {},
@@ -137,28 +114,12 @@ export default {
     };
   },
 
-  computed: {
-    ...mapGetters({ find: 'batches/find' })
-  },
-
-  mounted () {
-    const _id = this.$route.params.id;
-    if (_id === 'new') {
-      this.mode = 'insert';
-      this.batch = {
-        created_at: Date.now(),
-        state: 'fresh'
-      }
-    } else {
-      this.batch = { ...this.find(_id) };
-    }
-  },
-
   methods: {
 
     ...mapActions({
       update: 'batches/update',
-      add: 'batches/add'
+      add: 'batches/add',
+      get: 'batches/fetchById'
     }),
 
     onSave () {

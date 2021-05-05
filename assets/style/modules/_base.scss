@@ -57,3 +57,13 @@
     display: none !important;
   }
 }
+
+.button-header {
+  border: 2px solid darken($color_background, 10);
+  border-radius: 0.8em;
+  padding: 5px 15px;
+  text-transform: uppercase;
+  font-size: 0.95em;
+  font-weight: 700;
+  color:$color_text_dark;
+}

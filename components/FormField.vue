@@ -1,16 +1,16 @@
 <template>
   <b-form-group
     :id="id"
-    :label="label"
+    :label="$t(label)"
     :label-for="`input-${id}`"
-    :description="description"
+    :description="$t(`${label}_description`)"
   >
     <b-form-input
       v-if="type === 'input'"
       :id="`input-${id}`"
       v-model="modelValue"
       type="text"
-      :placeholder="placeholder"
+      :placeholder="$t(`${label}_placeholder`)"
       required
       :disabled="disabled"
       @input="onChange"
@@ -21,7 +21,7 @@
       :id="`input-${id}`"
       v-model="modelValue"
       type="number"
-      :placeholder="placeholder"
+      :placeholder="$t(`${label}_placeholder`)"
       required
       :disabled="disabled"
       @input="onChange"
@@ -31,7 +31,7 @@
       v-if="type === 'textarea'"
       :id="`input-${id}`"
       v-model="modelValue"
-      :placeholder="placeholder"
+      :placeholder="$t(`${label}_placeholder`)"
       :rows="textareaDimensions.rows"
       :max-rows="textareaDimensions.maxRows"
       required
@@ -54,8 +54,6 @@ export default {
   props: {
     value: { type: [String, Date, Number, Array], default: '' },
     label: { type: String, required: true },
-    description: { type: String, default: '' },
-    placeholder: { type: String, default: '' },
     required: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     type: { type: String, default: 'input' },

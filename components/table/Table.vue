@@ -36,28 +36,6 @@
         <b-form-checkbox :checked="allSelected" size="lg" @change="onSelectAll" />
       </template>
 
-      <template #row-details="row">
-        <b-card>
-          <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right">
-              <b>Age:</b>
-            </b-col>
-            <b-col>{{ row.item.age }}</b-col>
-          </b-row>
-
-          <b-row class="mb-2">
-            <b-col sm="3" class="text-sm-right">
-              <b>Is Active:</b>
-            </b-col>
-            <b-col>{{ row.item.isActive }}</b-col>
-          </b-row>
-
-          <b-button size="sm" @click="row.toggleDetails">
-            Hide Details
-          </b-button>
-        </b-card>
-      </template>
-
       <template #table-busy>
         <div class="text-center my-2">
           <b-spinner class="align-middle mr-2" />
@@ -188,6 +166,7 @@ export default {
     },
 
     formatDate (date) {
+      moment.locale(this.$i18n.locale);
       return {
         date: moment(date).format('DD MMM YYYY'),
         time: moment(date).format('HH:mm'),
@@ -208,7 +187,7 @@ export default {
     },
 
     onRowClicked (row) {
-      this.$set(row, '_showDetails', !row._showDetails)
+      this.$emit('rowClick', row);
     },
 
     onSelectRow (evt, { item }) {
