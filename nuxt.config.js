@@ -120,10 +120,10 @@ export default {
   },
 
   server: {
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'secrets', 'server.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'secrets', 'server.crt'))
-    },
+    // https: {
+    //   key: fs.readFileSync(path.resolve(__dirname, 'secrets', 'server.key')),
+    //   cert: fs.readFileSync(path.resolve(__dirname, 'secrets', 'server.crt'))
+    // },
 
     port: process.env.PORT || 8000, // default: 3000
     host: process.env.HOST || '0.0.0.0' // default: localhost
