@@ -4,7 +4,7 @@
     <b-table-simple>
       <b-thead head-variant="dark">
         <b-tr>
-          <b-th colspan="1" class="t-header">
+          <b-th colspan="1" class="t-header text-center">
             #
           </b-th>
           <b-th colspan="1" class="t-header">
@@ -25,10 +25,16 @@
 
       <b-tbody>
         <b-tr v-for="(item, index) in modelValue" :key="index">
-          <b-td @click="editing = index">
-            {{ index+1 }}
+          <b-td class="text-center">
+            <span v-if="editing !== index">
+              {{ index+1 }}
+            </span>
+
+            <b-button v-else variant="light" class="p-0 text-danger" size="sm" @click="cancelEdition(index)">
+              <b-icon icon="x" scale="1.5" />
+            </b-button>
           </b-td>
-          <b-td style="max-width:100px" @click="editing = index">
+          <b-td style="max-width:100px" @click="editing !== index && editEvent(index)">
             <div v-if="editing !== index" class="w-100 d-flex flex-column justify-content-center align-items-start">
               <span class="field-master">{{ formatDate(item.date).date }}</span>
               <span class="field-detail">{{ formatDate(item.date).fromNow }}</span>
@@ -37,37 +43,38 @@
             <b-form-datepicker
               v-else
               :id="`date-${index}`"
-              v-model="item.date"
+              v-model="tempEvent.date"
               size="sm"
               :date-format-options="{ year: '2-digit', month: 'short', day: '2-digit' }"
+              :label-no-date-selected="$t('Select')"
             />
           </b-td>
-          <b-td style="max-width:120px" @click="editing = index">
+          <b-td style="max-width:120px" @click="editing !== index && editEvent(index)">
             <span v-if="editing !== index">
               {{ item.type }}
             </span>
-            <b-form-select v-else :id="`type-${index}`" v-model="item.type" :options="typeOptions" size="sm" />
+            <b-form-select v-else :id="`type-${index}`" v-model="tempEvent.type" :options="typeOptions" size="sm" />
           </b-td>
-          <b-td @click="editing = index">
+          <b-td @click="editing !== index && editEvent(index)">
             <span v-if="editing !== index">
               {{ item.description }}
             </span>
             <b-form-input
               v-else
               :id="`description-${index}`"
-              v-model="item.description"
+              v-model="tempEvent.description"
               type="text"
               size="sm"
             />
           </b-td>
-          <b-td style="max-width:20px" @click="editing = index">
+          <b-td style="max-width:20px" @click="editing !== index && editEvent(index)">
             <span v-if="editing !== index">
               {{ item.value }}
             </span>
             <b-form-input
               v-else
               :id="`value-${index}`"
-              v-model="item.value"
+              v-model="tempEvent.value"
               type="text"
               size="sm"
             />
@@ -75,17 +82,17 @@
           <b-td>
             <div class="w-100 d-flex flex-row justify-content-end align-items-center">
               <b-button v-if="editing !== index" variant="light" class="text-danger p-0" size="sm" @click="onDelete(index)">
-                <b-icon icon="x" scale="1.4" />
+                <b-icon icon="trash" scale="1" />
               </b-button>
               <b-button v-else variant="light" class="text-success p-0" size="sm" @click="onAccept(index)">
-                <b-icon icon="check" scale="1.4" />
+                <b-icon icon="check" scale="1.5" />
               </b-button>
             </div>
           </b-td>
         </b-tr>
         <b-tr>
           <b-th colspan="100" class="text-right">
-            <b-button variant="accent" class="button-header rounded-pill" @click="modelValue.push({date: new Date(), value:0, editMode:true})">
+            <b-button variant="accent" class="button-header rounded-pill" @click="addEvent()">
               <b-icon icon="plus" /> ADD
             </b-button>
           </b-th>
@@ -118,7 +125,13 @@ export default {
       { value: 'racking', text: 'Racking' },
       { value: 'other', text: 'Other' }
     ],
-    editing: -1
+    editing: -1,
+    tempEvent: {
+      date: null,
+      description: '',
+      type: '',
+      value: ''
+    }
   }),
 
   computed: {
@@ -135,6 +148,7 @@ export default {
 
   mounted () {
     this.modelValue = this.value;
+    moment.locale(this.$i18n.locale);
 
     if (!this.modelValue.length) {
       this.modelValue.push({
@@ -149,6 +163,27 @@ export default {
 
   methods: {
 
+    addEvent () {
+      this.modelValue.push({
+        date: null,
+        description: '',
+        type: '',
+        value: ''
+      });
+
+      this.editing = this.modelValue.length - 1;
+    },
+
+    editEvent (index) {
+      this.tempEvent = { ...this.modelValue[index] };
+      this.editing = index;
+    },
+
+    cancelEdition (index) {
+      this.tempEvent = {};
+      this.editing = -1;
+    },
+
     onDelete (index) {
       const element = this.modelValue[index];
       this.modelValue.splice(index, 1);
@@ -161,23 +196,24 @@ export default {
           this.modelValue.splice(index, 0, element);
           this.$emit('input', this.modelValue.map(m => ({ date: m.date, value: m.value })));
         }
-
       })
     },
 
     onAccept (index) {
+      this.modelValue[index] = { ...this.tempEvent };
+      this.tempEvent = {};
       this.$emit('input', this.modelValue);
       this.editing = -1;
     },
 
     formatDate (date) {
-      moment.locale(this.$i18n.locale);
-
-      return {
+      const data = {
         date: moment(date).format('DD MMM YYYY'),
         time: moment(date).format('HH:mm'),
         fromNow: moment(date).fromNow()
-      }
+      };
+
+      return data
     }
 
   }
