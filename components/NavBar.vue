@@ -26,16 +26,16 @@
         <fa :icon="['fas', 'sign-out-alt']" class="fa-rotate-180" />
       </b-link>
 
-      <b-link class="nav-item notification hide-mobile" to="/notifications">
+      <!-- <b-link class="nav-item notification hide-mobile" to="/notifications">
         <fa :icon="['fas', 'bell']" />
         <b-badge pill variant="danger" class="notification-badge">
           3
         </b-badge>
-      </b-link>
+      </b-link> -->
 
-      <b-link to="/settings" class="nav-item hide-mobile">
+      <!-- <b-link to="/settings" class="nav-item hide-mobile">
         <fa :icon="['fas', 'cog']" />
-      </b-link>
+      </b-link> -->
       <div class="nav-divider" />
     </div>
 
