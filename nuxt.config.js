@@ -106,16 +106,17 @@ export default {
 
     strategies: {
       auth0: {
-        domain: 'dev-2yfbgjq3.us.auth0.com',
-        clientId: 'nLbsrwpaRUJ3Rk83Wz2IflkZE3BkqUTL',
-        logoutRedirectUri: 'https://localhost:8000/login',
-        audience: 'https://sideral.herokuapp.com'
+        domain: process.env.AUTH0_DOMAIN,
+        clientId: process.env.AUTH0_CLIENTID,
+        logoutRedirectUri: process.env.AUTH0_LOGOUTURL,
+        audience: process.env.AUTH0_AUDIENCE
       }
     }
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+
   },
 
   server: {
@@ -124,12 +125,14 @@ export default {
       cert: fs.readFileSync(path.resolve(__dirname, 'secrets', 'server.crt'))
     },
 
-    port: 8000, // default: 3000
-    host: '0.0.0.0' // default: localhost
-  }, // other configs
+    port: process.env.PORT || 8000, // default: 3000
+    host: process.env.HOST || '0.0.0.0' // default: localhost
+  } // other configs
 
-  env: {
-    apiUrl: 'https://sideral.herokuapp.com/api/v1',
-    dev: true
-  }
+  // publicRuntimeConfig: {
+  //   baseURL: process.env.BASE_URL
+  // },
+  // privateRuntimeConfig: {
+  //   apiSecret: process.env.API_SECRET
+  // }
 }
