@@ -1,5 +1,5 @@
-import path from 'path'
-import fs from 'fs'
+// import path from 'path'
+// import fs from 'fs'
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
