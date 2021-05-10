@@ -17,7 +17,7 @@
     </page-header>
 
     <div class="mx-4 py-3 d-flex align-items-center justify-content-start content-header">
-      <Search id="batches" :placeholder="`${$t('SearchByCodeOrName')}...`" />
+      <TableSearch id="batches" :placeholder="`${$t('SearchByCodeOrName')}...`" />
     </div>
 
     <Table
@@ -91,13 +91,12 @@ export default {
           width: '135px',
           thClass: 't-header'
         }
-      ],
-      busy: false
+      ]
     };
   },
 
   computed: {
-    ...mapGetters({ batches: 'batches/data' }),
+    ...mapGetters({ batches: 'batches/data', busy: 'batches/busy' }),
 
     batchesData () {
       return this.batches.map(b => ({
