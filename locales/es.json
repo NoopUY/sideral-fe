@@ -37,6 +37,7 @@
   "BaseInfo": "Información Basica",
   "Events": "Eventos",
   "Select": "Seleccione",
+  "print": "imprimir",
 
   "field_batchSystemID": "ID",
   "field_batchSystemID_description": "La id se asigna automaticamente y no puede ser modificada",
