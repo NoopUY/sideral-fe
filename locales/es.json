@@ -43,6 +43,11 @@
   "field_batchSystemID_description": "La id se asigna automaticamente y no puede ser modificada",
   "field_batchSystemID_placeholder": "",
 
+  "field_batchState": "Estado",
+  "field_batchState_description": "El estado actual del lote",
+  "field_batchState_placeholder": "-- Seleccione un estado ---",
+
+
   "field_batchCustomID": "ID personalizada",
   "field_batchCustomID_description": "Una forma de identificar el lote que tenga sentido para ti Tal vez la ID del fermentador?",
   "field_batchCustomID_placeholder": "",

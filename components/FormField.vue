@@ -16,6 +16,23 @@
       @input="onChange"
     />
 
+    <b-form-select
+      v-if="type === 'select'"
+      :id="`input-${id}`"
+      v-model="modelValue"
+      :options="options"
+      required
+      :disabled="disabled"
+      @input="onChange"
+    >
+      <!-- This slot appears above the options from 'options' prop -->
+      <template #first>
+        <b-form-select-option :value="null" disabled>
+          {{ $t(`${label}_placeholder`) }}
+        </b-form-select-option>
+      </template>
+    </b-form-select>
+
     <b-form-input
       v-if="type === 'number'"
       :id="`input-${id}`"
@@ -56,6 +73,7 @@ export default {
     label: { type: String, required: true },
     required: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    options: { type: Array, default: () => ([]) },
     type: { type: String, default: 'input' },
     textareaDimensions: { type: Object, default: () => ({ rows: 5, maxRows: 10 }) }
   },

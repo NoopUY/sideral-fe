@@ -43,6 +43,11 @@
   "field_batchSystemID_description": "ID is automatically assigned and cannot be modified",
   "field_batchSystemID_placeholder": "",
 
+  "field_batchState": "State",
+  "field_batchState_description": "Current batch state",
+  "field_batchState_placeholder": "-- Select a state ---",
+
+
   "field_batchCustomID": "Custom ID",
   "field_batchCustomID_description": "Same way to uniquely identify the batch that makes sense to you.",
   "field_batchCustomID_placeholder": "",

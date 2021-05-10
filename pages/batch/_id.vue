@@ -18,17 +18,25 @@
     </page-header>
 
     <div class="d-flex justify-content-center">
-      <b-form class="w-50">
-        <wizard
+      <b-form class="w-50 mt-3">
+        <!-- <wizard
           v-model="batch.state"
           :steps="[`${$t('fresh')}`, `${$t('primary')}`, `${$t('secondary')}`, `${$t('bottled')}`]"
-        />
+        /> -->
 
         <b-tabs content-class="mt-3" class="flex-row">
           <b-tab :title="$t('BaseInfo')" active>
             <form-field
               v-model="batch.custom_id"
               label="field_batchCustomID"
+              required
+            />
+
+            <form-field
+              v-model="batch.state"
+              label="field_batchState"
+              type="select"
+              :options="stateOptions"
               required
             />
 
@@ -47,8 +55,6 @@
             <form-field
               v-model="batch.yeast"
               label="field_batchYeast"
-              description="Yeast used for primary/secondary fermentation"
-              placeholder="Enter yeast"
             />
 
             <form-field
@@ -89,7 +95,13 @@ export default {
 
     const data = {
       batch: {},
-      mode: 'edit'
+      mode: 'edit',
+      stateOptions: [
+        { text: $context.i18n.t('fresh'), value: 'fresh' },
+        { text: $context.i18n.t('primary'), value: 'primary' },
+        { text: $context.i18n.t('secondary'), value: 'secondary' },
+        { text: $context.i18n.t('bottled'), value: 'bottled' }
+      ]
     };
 
     if (_id === 'new') {
