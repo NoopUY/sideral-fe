@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Pagination :id="id" class="hide-mobile">
+    <TablePagination :id="id" class="hide-mobile">
       <span v-if="selectedItems.length > 0" class="mr-4">
         <span v-for="action in modelItems[0].actions" :key="action.action">
           <b-button
@@ -18,7 +18,7 @@
           </b-button>
         </span>
       </span>
-    </Pagination>
+    </TablePagination>
 
     <b-table
       :id="id"
@@ -106,8 +106,10 @@
 
 <script>
 import moment from 'moment';
+// import Pagination from '@/components/table/Pagination'
 
 export default {
+  // components: { Pagination },
   props: {
     id: {
       type: String,
