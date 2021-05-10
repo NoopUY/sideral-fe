@@ -127,11 +127,11 @@ export default {
 
     port: process.env.PORT || 8000, // default: 3000
     host: process.env.HOST || '0.0.0.0' // default: localhost
-  } // other configs
+  }, // other configs
 
-  // publicRuntimeConfig: {
-  //   baseURL: process.env.BASE_URL
-  // },
+  publicRuntimeConfig: {
+    apiUrl: process.env.API_URL
+  }
   // privateRuntimeConfig: {
   //   apiSecret: process.env.API_SECRET
   // }

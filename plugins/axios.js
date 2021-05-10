@@ -1,9 +1,9 @@
 import https from 'https';
 
-export default function ({ app, $axios, $toast }, inject) {
+export default function ({ app, $axios, $toast, $config }, inject) {
   const agent = new https.Agent({ rejectUnauthorized: false });
 
-  $axios.setBaseURL(process.env.API_URL);
+  $axios.setBaseURL($config.apiUrl);
 
   $axios.onError((err) => {
     if (err.response.status === 403) {
