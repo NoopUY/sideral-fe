@@ -11,7 +11,7 @@
 
     <slot name="header-actions" />
 
-    <b-dropdown variant="clear" no-caret boundary="viewport" class="ml-2" size="sm">
+    <!-- <b-dropdown variant="clear" no-caret boundary="viewport" class="ml-2" size="sm">
       <template #button-content>
         <b-button variant="white" class="button-header hide-mobile">
           {{ $i18n.locale }} <b-icon icon="caret-down-fill" />
@@ -23,11 +23,11 @@
         :key="locale.code"
         :disabled=" ($nuxt.$loading && $nuxt.$loading.show)"
       >
-        <nuxt-link :to="switchLocalePath(locale.code)">
+        <b-link :to="switchLocalePath(locale.code)">
           {{ locale.name }}
-        </nuxt-link>
+        </b-link>
       </b-dropdown-item>
-    </b-dropdown>
+    </b-dropdown> -->
   </div>
 </template>
 
