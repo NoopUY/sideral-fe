@@ -1,8 +1,15 @@
 <template>
   <div id="app">
-    <nav-bar />
-    <div id="app-content" class="d-flex flex-column">
-      <nuxt />
+    <div class="app-container">
+      <!-- Sidebar -->
+      <aside class="app-container__sidebar">
+        <nav-bar />
+      </aside>
+
+      <!-- Main -->
+      <main class="app-container__main">
+        <nuxt />
+      </main>
     </div>
   </div>
 </template>
@@ -22,8 +29,23 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/style/modules/_colors.scss";
 @import "@/assets/style/modules/_constants.scss";
-@import "@/assets/style/modules/_mixins.scss";
-@import "@/assets/style/modules/_media.scss";
+
+.app-container {
+    display: flex;
+}
+
+.app-container__sidebar {
+    width: $nav-width;
+    height: 100vh;
+}
+
+.app-container__main {
+    /* Take the remaining width */
+    flex: 1;
+
+    /* Make it scrollable */
+    overflow: auto;
+}
 
 #app {
   -webkit-font-smoothing: antialiased;
@@ -31,25 +53,8 @@ export default {
   font-family: "Raleway", sans-serif;
   letter-spacing: 0.015em;
   font-size: 0.8em;
-  position: absolute;
   color: $color_text_dark;
-  width: 100%;
-  min-height: 100%;
-  left: 0px;
-  top: 0px;
   background-color: $color_background;
-
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: flex-start;
-
-  @media #{$md-screen} {
-    flex-direction: column;
-  }
 }
 
-#app-content {
-  flex-grow: 1;
-}
 </style>

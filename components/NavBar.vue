@@ -116,6 +116,8 @@ export default {
   background-color: $color_primary;
   min-width: $nav-width;
   padding: 20px 0px 20px 0px;
+  height: 100%;
+  position: fixed;
 
   a {
     text-decoration: none;
